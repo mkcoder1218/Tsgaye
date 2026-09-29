@@ -4,9 +4,9 @@
   --ink: #0b0b0d;
   --muted: #66645f;
   --line: rgba(11, 11, 13, 0.16);
-  --blue: #2f48ff;
-  --blue-dark: #1a2bd0;
-  --lime: #dfff00;
+  --accent: #b85c3b;
+  --accent-dark: #8f432c;
+  --highlight: #c8bd83;
   --white: #fffdf7;
   --shadow: 0 24px 70px rgba(11, 11, 13, 0.10);
 }
@@ -37,7 +37,7 @@ a {
 }
 
 ::selection {
-  background: var(--lime);
+  background: var(--highlight);
   color: var(--ink);
 }
 
@@ -70,7 +70,7 @@ a {
 }
 
 .brand span {
-  color: var(--blue);
+  color: var(--accent);
 }
 
 .nav-links {
@@ -97,7 +97,7 @@ a {
   right: 100%;
   bottom: -7px;
   height: 2px;
-  background: var(--blue);
+  background: var(--accent);
   transition: right 0.22s ease;
 }
 
@@ -151,7 +151,7 @@ a {
 }
 
 .hero-kicker span:first-child {
-  color: var(--blue);
+  color: var(--accent);
 }
 
 .hero-title {
@@ -181,7 +181,7 @@ a {
   font-weight: 700;
   letter-spacing: -0.075em;
   text-transform: none;
-  -webkit-text-stroke: 3px var(--blue);
+  -webkit-text-stroke: 3px var(--accent);
 }
 
 .hero-bottom {
@@ -228,7 +228,7 @@ a {
 
 .hero-button-primary {
   color: var(--white);
-  background: var(--blue);
+  background: var(--accent);
 }
 
 .hero-button-ghost {
@@ -263,7 +263,7 @@ a {
   color: var(--white);
   background:
     linear-gradient(145deg, transparent 0 58%, rgba(223, 255, 0, 0.88) 58% 72%, transparent 72%),
-    linear-gradient(35deg, var(--blue) 0 44%, #14204e 44% 58%, var(--ink) 58%);
+    linear-gradient(35deg, var(--accent) 0 44%, #5b473e 44% 58%, var(--ink) 58%);
 }
 
 .image-placeholder::before {
@@ -327,7 +327,7 @@ a {
   height: 120px;
   left: 4px;
   bottom: 4px;
-  background: var(--lime);
+  background: var(--highlight);
 }
 
 .hero-sticker {
@@ -344,7 +344,7 @@ a {
   height: 132px;
   display: grid;
   place-content: center;
-  background: var(--lime);
+  background: var(--highlight);
   transform: rotate(-7deg);
 }
 
@@ -389,7 +389,7 @@ a {
   position: absolute;
   top: 32%;
   right: -58px;
-  color: var(--blue);
+  color: var(--accent);
   font-size: 7rem;
   font-weight: 950;
   letter-spacing: -0.08em;
@@ -402,7 +402,7 @@ a {
   overflow: hidden;
   border-top: 2px solid var(--ink);
   border-bottom: 2px solid var(--ink);
-  background: var(--lime);
+  background: var(--highlight);
 }
 
 .hero-marquee div {
@@ -438,7 +438,7 @@ a {
 
 .section-eyebrow {
   margin: 8px 0 0;
-  color: var(--blue);
+  color: var(--accent);
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.17em;
@@ -478,19 +478,19 @@ a {
 .service-card:hover {
   z-index: 2;
   color: var(--white);
-  background: var(--blue);
+  background: var(--accent);
   transform: translate(-7px, -7px);
   box-shadow: 7px 7px 0 var(--ink);
 }
 
 .service-number {
-  color: var(--blue);
+  color: var(--accent);
   font-size: 0.75rem;
   font-weight: 900;
 }
 
 .service-card:hover .service-number {
-  color: var(--lime);
+  color: var(--highlight);
 }
 
 .service-card h3 {
@@ -528,7 +528,7 @@ a {
 }
 
 .work-lead span {
-  color: var(--blue);
+  color: var(--accent);
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.13em;
@@ -566,28 +566,28 @@ a {
 
 .portfolio-placeholder-1 {
   background:
-    linear-gradient(120deg, transparent 0 50%, var(--lime) 50% 62%, transparent 62%),
-    var(--blue);
+    linear-gradient(120deg, transparent 0 50%, var(--highlight) 50% 62%, transparent 62%),
+    var(--accent);
   color: var(--white);
 }
 
 .portfolio-placeholder-2 {
   background:
-    radial-gradient(circle at 70% 28%, var(--lime) 0 16%, transparent 16%),
+    radial-gradient(circle at 70% 28%, var(--highlight) 0 16%, transparent 16%),
     linear-gradient(135deg, var(--ink) 0 46%, var(--paper-strong) 46%);
 }
 
 .portfolio-placeholder-3 {
   background:
-    linear-gradient(90deg, var(--blue) 0 18%, transparent 18%),
+    linear-gradient(90deg, var(--accent) 0 18%, transparent 18%),
     repeating-linear-gradient(0deg, transparent 0 50px, rgba(11, 11, 13, 0.12) 50px 51px),
     var(--white);
 }
 
 .portfolio-placeholder-4 {
   background:
-    radial-gradient(circle at center, transparent 0 20%, var(--ink) 20% 21%, transparent 21% 34%, var(--blue) 34% 35%, transparent 35%),
-    var(--lime);
+    radial-gradient(circle at center, transparent 0 20%, var(--ink) 20% 21%, transparent 21% 34%, var(--accent) 34% 35%, transparent 35%),
+    var(--highlight);
 }
 
 .portfolio-placeholder-label {
@@ -673,7 +673,7 @@ a {
 }
 
 .work-caption > span {
-  color: var(--blue);
+  color: var(--accent);
   font-size: 0.75rem;
   font-weight: 900;
 }
@@ -693,7 +693,7 @@ a {
   place-items: center;
   overflow: hidden;
   color: var(--white);
-  background: var(--blue);
+  background: var(--accent);
   border: 2px solid var(--ink);
   box-shadow: 12px 12px 0 var(--ink);
 }
@@ -703,14 +703,14 @@ a {
   position: absolute;
   width: 72%;
   aspect-ratio: 1;
-  border: 2px solid var(--lime);
+  border: 2px solid var(--highlight);
   border-radius: 50%;
 }
 
 .about-letter {
   position: relative;
   z-index: 2;
-  color: var(--lime);
+  color: var(--highlight);
   font: italic 34rem/0.7 Georgia, serif;
 }
 
@@ -746,7 +746,7 @@ a {
 }
 
 .timeline-row time {
-  color: var(--blue);
+  color: var(--accent);
   font-size: 0.75rem;
   font-weight: 900;
 }
@@ -777,7 +777,7 @@ a {
   right: 0;
   padding: 8px 12px;
   color: var(--ink);
-  background: var(--lime);
+  background: var(--highlight);
   border: 2px solid var(--ink);
   font-size: 0.7rem;
   font-weight: 950;
@@ -794,7 +794,7 @@ a {
 
 .contact-heading a {
   color: transparent;
-  -webkit-text-stroke: 3px var(--blue);
+  -webkit-text-stroke: 3px var(--accent);
 }
 
 .contact-grid {
@@ -817,7 +817,7 @@ a {
 .contact-grid span {
   display: block;
   margin-bottom: 20px;
-  color: var(--blue);
+  color: var(--accent);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.14em;

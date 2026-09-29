@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const categories = [
+  { label: "Hero Image", slug: "hero-image" },
+  { label: "About Me", slug: "about-me" },
   { label: "Brand Identity", slug: "brand-identity" },
   { label: "Marketing Design", slug: "marketing-design" },
   { label: "Print & Editorial", slug: "print-editorial" },
@@ -35,8 +37,6 @@ type ImageKitUploadResponse = {
   name?: string;
   message?: string;
 };
-
-const SESSION_KEY = "tsegaye-upload-passcode";
 
 function createId(file: File) {
   return `${file.name}-${file.size}-${file.lastModified}-${crypto.randomUUID()}`;
@@ -95,16 +95,10 @@ function uploadToImageKit(
 
 export function AdminUploader() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [passcode, setPasscode] = useState("");
   const [items, setItems] = useState<UploadItem[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [globalError, setGlobalError] = useState("");
   const [uploading, setUploading] = useState(false);
-
-  useEffect(() => {
-    const saved = sessionStorage.getItem(SESSION_KEY);
-    if (saved) setPasscode(saved);
-  }, []);
 
   const completedCount = useMemo(
     () => items.filter((item) => item.status === "done").length,
@@ -136,7 +130,6 @@ export function AdminUploader() {
 
   const fetchAuth = async () => {
     const response = await fetch("/api/imagekit-auth", {
-      headers: { "x-admin-key": passcode },
       cache: "no-store",
     });
 
@@ -146,7 +139,6 @@ export function AdminUploader() {
       throw new Error(data.error || "Could not authorize upload.");
     }
 
-    sessionStorage.setItem(SESSION_KEY, passcode);
     return data;
   };
 
@@ -187,11 +179,6 @@ export function AdminUploader() {
       (item) => item.status === "ready" || item.status === "error",
     );
 
-    if (!passcode.trim()) {
-      setGlobalError("Enter the admin passcode first.");
-      return;
-    }
-
     if (readyItems.length === 0) {
       setGlobalError("Choose at least one image.");
       return;
@@ -226,25 +213,16 @@ export function AdminUploader() {
             <p className="admin-eyebrow">Private portfolio uploader</p>
             <h1>Upload Tsegaye&apos;s work.</h1>
           </div>
-          <a href="/" className="admin-back">
-            Back to portfolio ↗
-          </a>
-        </div>
-
-        <div className="admin-passcode">
-          <label htmlFor="admin-passcode">Admin passcode</label>
-          <input
-            id="admin-passcode"
-            type="password"
-            value={passcode}
-            onChange={(event) => setPasscode(event.target.value)}
-            placeholder="Enter upload passcode"
-            autoComplete="current-password"
-          />
-          <p>
-            The hidden triple-click opens this page. The passcode protects the
-            ImageKit upload quota.
-          </p>
+          <div className="admin-heading-actions">
+            <a href="/" className="admin-back">
+              Back to portfolio ↗
+            </a>
+            <form action="/api/admin/logout" method="post">
+              <button type="submit" className="admin-logout">
+                Log out
+              </button>
+            </form>
+          </div>
         </div>
 
         <div

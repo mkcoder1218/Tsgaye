@@ -1490,3 +1490,133 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Admin login */
+
+.admin-login-shell {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    linear-gradient(rgba(11, 11, 13, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 11, 13, 0.025) 1px, transparent 1px),
+    var(--paper);
+  background-size: 42px 42px;
+}
+
+.admin-login-card {
+  width: min(560px, 100%);
+  padding: clamp(28px, 6vw, 58px);
+  border: 2px solid var(--ink);
+  background: var(--white);
+  box-shadow: 12px 12px 0 var(--ink);
+}
+
+.admin-login-card h1 {
+  margin: 0;
+  font-size: clamp(3.1rem, 8vw, 6rem);
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.admin-login-copy {
+  margin: 22px 0 30px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.admin-login-form {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-login-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-login-form label > span {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-login-form input {
+  min-height: 52px;
+  width: 100%;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font: inherit;
+}
+
+.admin-login-form button {
+  min-height: 56px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  cursor: pointer;
+  color: var(--white);
+  background: var(--accent);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.admin-login-form button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.admin-login-back {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.admin-heading-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-heading-actions form {
+  margin: 0;
+}
+
+.admin-logout {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .admin-heading-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-logout {
+    width: 100%;
+  }
+}

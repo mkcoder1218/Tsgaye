@@ -26,6 +26,19 @@ function randomBetween(min: number, max: number) {
   return min + Math.random() * (max - min);
 }
 
+function transformText(value: string, transform: string) {
+  switch (transform) {
+    case "uppercase":
+      return value.toUpperCase();
+    case "lowercase":
+      return value.toLowerCase();
+    case "capitalize":
+      return value.replace(/\b\p{L}/gu, (letter) => letter.toUpperCase());
+    default:
+      return value;
+  }
+}
+
 export function SandText({
   children,
   className = "",
@@ -51,13 +64,15 @@ export function SandText({
     ).matches;
 
     if (reducedMotion) {
-      root.classList.add("sand-text-settled");
+      root.classList.add("sand-text-handoff", "sand-text-settled");
       return;
     }
 
     let frame = 0;
     let startTimer = 0;
+    let hideTimer = 0;
     let cancelled = false;
+    let handoffStarted = false;
 
     const buildParticles = async () => {
       await document.fonts.ready;
@@ -66,6 +81,8 @@ export function SandText({
         return;
       }
 
+      const computed = window.getComputedStyle(text);
+      const renderedText = transformText(children, computed.textTransform);
       const bounds = text.getBoundingClientRect();
       const width = Math.max(1, Math.ceil(bounds.width));
       const height = Math.max(1, Math.ceil(bounds.height));
@@ -86,11 +103,10 @@ export function SandText({
       const context = canvas.getContext("2d");
 
       if (!offscreenContext || !context) {
-        root.classList.add("sand-text-settled");
+        root.classList.add("sand-text-handoff", "sand-text-settled");
         return;
       }
 
-      const computed = window.getComputedStyle(text);
       const rootStyles = window.getComputedStyle(document.documentElement);
       const particleColor =
         rootStyles.getPropertyValue(colorToken).trim() || "#0b0b0d";
@@ -98,12 +114,15 @@ export function SandText({
       offscreenContext.scale(dpr, dpr);
       offscreenContext.font = [
         computed.fontStyle,
+        computed.fontVariant,
         computed.fontWeight,
         computed.fontSize,
         computed.fontFamily,
       ].join(" ");
       offscreenContext.textBaseline = "top";
+      offscreenContext.textAlign = "left";
       offscreenContext.lineJoin = "round";
+      offscreenContext.lineCap = "round";
 
       const letterSpacing = Number.parseFloat(computed.letterSpacing);
       if (
@@ -118,12 +137,17 @@ export function SandText({
       }
 
       if (outline) {
+        const strokeWidth =
+          Number.parseFloat(
+            computed.getPropertyValue("-webkit-text-stroke-width"),
+          ) || 3;
+
         offscreenContext.strokeStyle = particleColor;
-        offscreenContext.lineWidth = 3;
-        offscreenContext.strokeText(children, 0, 0);
+        offscreenContext.lineWidth = strokeWidth;
+        offscreenContext.strokeText(renderedText, 0, 0);
       } else {
         offscreenContext.fillStyle = particleColor;
-        offscreenContext.fillText(children, 0, 0);
+        offscreenContext.fillText(renderedText, 0, 0);
       }
 
       const image = offscreenContext.getImageData(
@@ -146,12 +170,14 @@ export function SandText({
 
           const targetX = x / dpr;
           const targetY = y / dpr;
+          const startX = targetX + randomBetween(-120, 120);
+          const startY = targetY + randomBetween(60, 190);
 
           particles.push({
-            x: targetX + randomBetween(-120, 120),
-            y: targetY + randomBetween(60, 190),
-            startX: targetX + randomBetween(-120, 120),
-            startY: targetY + randomBetween(60, 190),
+            x: startX,
+            y: startY,
+            startX,
+            startY,
             targetX,
             targetY,
             size: randomBetween(0.8, 2.2),
@@ -164,6 +190,7 @@ export function SandText({
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const duration = 1450;
+      const handoffAt = 0.88;
       const startedAt = performance.now();
 
       const render = (time: number) => {
@@ -174,6 +201,11 @@ export function SandText({
         const elapsed = time - startedAt;
         const progress = Math.min(1, elapsed / duration);
         const eased = 1 - Math.pow(1 - progress, 4);
+
+        if (!handoffStarted && progress >= handoffAt) {
+          handoffStarted = true;
+          root.classList.add("sand-text-handoff");
+        }
 
         context.clearRect(0, 0, width, height);
         context.fillStyle = particleColor;
@@ -194,7 +226,12 @@ export function SandText({
             (particle.targetY - particle.startY) * eased +
             Math.cos(progress * 10 + particle.phase) * turbulence;
 
-          const alpha = Math.min(1, 0.2 + progress * 1.2);
+          const particleFade =
+            progress > handoffAt
+              ? 1 - (progress - handoffAt) / (1 - handoffAt)
+              : 1;
+          const alpha = Math.min(1, 0.2 + progress * 1.2) * particleFade;
+
           context.globalAlpha = alpha;
           context.beginPath();
           context.arc(
@@ -216,11 +253,11 @@ export function SandText({
 
         root.classList.add("sand-text-settled");
 
-        window.setTimeout(() => {
+        hideTimer = window.setTimeout(() => {
           if (!cancelled) {
             canvas.style.display = "none";
           }
-        }, 420);
+        }, 180);
       };
 
       startTimer = window.setTimeout(() => {
@@ -234,6 +271,7 @@ export function SandText({
       cancelled = true;
       cancelAnimationFrame(frame);
       window.clearTimeout(startTimer);
+      window.clearTimeout(hideTimer);
     };
   }, [children, colorToken, delay, outline]);
 

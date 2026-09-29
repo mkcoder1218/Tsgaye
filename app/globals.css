@@ -177,7 +177,7 @@ a {
 .sand-text-source {
   display: block;
   opacity: 0;
-  transition: opacity 0.32s ease;
+  transition: opacity 0.18s linear;
 }
 
 .sand-text-canvas {
@@ -185,9 +185,9 @@ a {
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  transition: opacity 0.38s ease;
 }
 
+.sand-text-handoff .sand-text-source,
 .sand-text-settled .sand-text-source {
   opacity: 1;
 }

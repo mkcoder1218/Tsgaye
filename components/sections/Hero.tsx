@@ -3,20 +3,74 @@ import { portfolio } from "@/content/portfolio";
 export function Hero() {
   return (
     <section className="hero shell" id="top">
-      <div className="hero-main">
-        <p className="hero-eyebrow js-hero-item">Addis Ababa, Ethiopia · Graphic Designer</p>
-        <h1 aria-label="Tsegaye Teshome">
-          <span className="hero-line js-hero-line">Tsegaye</span>
-          <span className="hero-line hero-line-accent js-hero-line">Teshome</span>
-        </h1>
-      </div>
-      <div className="hero-footer js-hero-item">
-        <p className="hero-intro">{portfolio.heroIntro}</p>
-        <div className="hero-meta">
-          <strong>{portfolio.experienceYears} years of design experience</strong>
-          <span>{portfolio.disciplines.join(" · ")}</span>
+      <div className="hero-grid">
+        <div className="hero-copy">
+          <div className="hero-kicker js-hero-item">
+            <span>Independent creative</span>
+            <span>Addis Ababa · Ethiopia</span>
+          </div>
+
+          <h1 className="hero-title" aria-label="Tsegaye Teshome">
+            <span className="hero-title-line hero-title-primary js-hero-line">
+              Tsegaye
+            </span>
+            <span className="hero-title-line hero-title-outline js-hero-line">
+              Teshome
+            </span>
+          </h1>
+
+          <div className="hero-bottom js-hero-item">
+            <p className="hero-intro">{portfolio.heroIntro}</p>
+
+            <div className="hero-actions">
+              <a className="hero-button hero-button-primary" href="#work">
+                Selected work <span aria-hidden="true">↘</span>
+              </a>
+              <a className="hero-button hero-button-ghost" href={`mailto:${portfolio.email}`}>
+                Start a project
+              </a>
+            </div>
+          </div>
         </div>
-        <a className="scroll-link" href="#work">Explore work <span aria-hidden="true">↓</span></a>
+
+        <div className="hero-art js-hero-item">
+          <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
+          <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
+
+          <div className="hero-image-frame">
+            <div className="image-placeholder">
+              <span className="image-placeholder-label">Portrait / Artwork</span>
+              <span className="image-placeholder-mark">+</span>
+              <span className="image-placeholder-copy">
+                Replace with
+                <br />
+                Tsegaye&apos;s image
+              </span>
+            </div>
+          </div>
+
+          <div className="hero-sticker hero-sticker-top">
+            <span>07+</span>
+            <small>Years creating</small>
+          </div>
+
+          <div className="hero-sticker hero-sticker-bottom">
+            <strong>Branding</strong>
+            <span>Print · Digital · Motion</span>
+          </div>
+
+          <span className="hero-art-index" aria-hidden="true">
+            01
+          </span>
+        </div>
+      </div>
+
+      <div className="hero-marquee js-hero-item" aria-hidden="true">
+        <div>
+          Brand identity · Art direction · Posters · Digital promotion · 3D ·
+          Social design · Brand identity · Art direction · Posters · Digital
+          promotion · 3D · Social design ·
+        </div>
       </div>
     </section>
   );

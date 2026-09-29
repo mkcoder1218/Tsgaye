@@ -12,46 +12,106 @@ type PortfolioMotionProps = { children: ReactNode };
 export function PortfolioMotion({ children }: PortfolioMotionProps) {
   const root = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      gsap.set([".js-hero-line", ".js-hero-item", ".js-reveal", ".js-stagger-item"], { clearProps: "all" });
-      return;
-    }
+  useGSAP(
+    () => {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
-    const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
-    intro
-      .from(".js-hero-line", { yPercent: 110, opacity: 0, duration: 1.15, stagger: 0.08 })
-      .from(".js-hero-item", { y: 24, opacity: 0, duration: 0.75, stagger: 0.08 }, "-=0.55");
+      if (reduceMotion) {
+        gsap.set(
+          [
+            ".js-hero-tsegaye",
+            ".js-hero-teshome",
+            ".js-hero-item",
+            ".js-reveal",
+            ".js-stagger-item",
+          ],
+          { clearProps: "all" },
+        );
+        return;
+      }
 
-    gsap.utils.toArray<HTMLElement>(".js-reveal").forEach((element) => {
-      gsap.from(element, {
-        y: 42,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: { trigger: element, start: "top 84%", once: true },
+      const intro = gsap.timeline({
+        defaults: { ease: "power4.out" },
       });
-    });
 
-    gsap.utils.toArray<HTMLElement>(".js-stagger-group").forEach((group) => {
-      const items = group.querySelectorAll(".js-stagger-item");
-      gsap.from(items, {
-        y: 48,
-        opacity: 0,
-        duration: 0.85,
-        stagger: 0.08,
-        ease: "power3.out",
-        scrollTrigger: { trigger: group, start: "top 82%", once: true },
+      intro
+        .from(".js-hero-tsegaye", {
+          xPercent: -18,
+          yPercent: 65,
+          opacity: 0,
+          duration: 1.05,
+        })
+        .from(
+          ".js-hero-teshome",
+          {
+            xPercent: 20,
+            yPercent: 35,
+            rotation: 2,
+            opacity: 0,
+            duration: 1.15,
+            transformOrigin: "left center",
+          },
+          "-=0.42",
+        )
+        .from(
+          ".js-hero-item",
+          {
+            y: 24,
+            opacity: 0,
+            duration: 0.75,
+            stagger: 0.08,
+          },
+          "-=0.52",
+        );
+
+      gsap.utils.toArray<HTMLElement>(".js-reveal").forEach((element) => {
+        gsap.from(element, {
+          y: 42,
+          opacity: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: element,
+            start: "top 84%",
+            once: true,
+          },
+        });
       });
-    });
 
-    gsap.to(".about-letter", {
-      yPercent: -10,
-      ease: "none",
-      scrollTrigger: { trigger: ".about-art", start: "top bottom", end: "bottom top", scrub: true },
-    });
-  }, { scope: root });
+      gsap.utils
+        .toArray<HTMLElement>(".js-stagger-group")
+        .forEach((group) => {
+          const items = group.querySelectorAll(".js-stagger-item");
+
+          gsap.from(items, {
+            y: 48,
+            opacity: 0,
+            duration: 0.85,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: group,
+              start: "top 82%",
+              once: true,
+            },
+          });
+        });
+
+      gsap.to(".about-letter", {
+        yPercent: -10,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".about-art",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    },
+    { scope: root },
+  );
 
   return <div ref={root}>{children}</div>;
 }

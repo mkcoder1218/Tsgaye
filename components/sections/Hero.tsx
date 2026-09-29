@@ -11,10 +11,10 @@ export function Hero() {
           </div>
 
           <h1 className="hero-title" aria-label="Tsegaye Teshome">
-            <span className="hero-title-line hero-title-primary js-hero-line">
+            <span className="hero-title-line hero-title-primary js-hero-tsegaye">
               Tsegaye
             </span>
-            <span className="hero-title-line hero-title-outline js-hero-line">
+            <span className="hero-title-line hero-title-outline js-hero-teshome">
               Teshome
             </span>
           </h1>

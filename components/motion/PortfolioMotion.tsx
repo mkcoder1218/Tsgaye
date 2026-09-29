@@ -20,51 +20,20 @@ export function PortfolioMotion({ children }: PortfolioMotionProps) {
 
       if (reduceMotion) {
         gsap.set(
-          [
-            ".js-hero-tsegaye",
-            ".js-hero-teshome",
-            ".js-hero-item",
-            ".js-reveal",
-            ".js-stagger-item",
-          ],
+          [".js-hero-item", ".js-reveal", ".js-stagger-item"],
           { clearProps: "all" },
         );
         return;
       }
 
-      const intro = gsap.timeline({
-        defaults: { ease: "power4.out" },
+      gsap.from(".js-hero-item", {
+        y: 24,
+        opacity: 0,
+        duration: 0.75,
+        stagger: 0.08,
+        delay: 0.32,
+        ease: "power4.out",
       });
-
-      intro
-        .from(".js-hero-tsegaye", {
-          xPercent: -18,
-          yPercent: 65,
-          opacity: 0,
-          duration: 1.05,
-        })
-        .from(
-          ".js-hero-teshome",
-          {
-            xPercent: 20,
-            yPercent: 35,
-            rotation: 2,
-            opacity: 0,
-            duration: 1.15,
-            transformOrigin: "left center",
-          },
-          "-=0.42",
-        )
-        .from(
-          ".js-hero-item",
-          {
-            y: 24,
-            opacity: 0,
-            duration: 0.75,
-            stagger: 0.08,
-          },
-          "-=0.52",
-        );
 
       gsap.utils.toArray<HTMLElement>(".js-reveal").forEach((element) => {
         gsap.from(element, {

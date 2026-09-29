@@ -168,6 +168,34 @@ a {
   max-width: 100%;
 }
 
+.sand-text {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+}
+
+.sand-text-source {
+  display: block;
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
+
+.sand-text-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.38s ease;
+}
+
+.sand-text-settled .sand-text-source {
+  opacity: 1;
+}
+
+.sand-text-settled .sand-text-canvas {
+  opacity: 0;
+}
+
 .hero-title-primary {
   font-weight: 950;
 }

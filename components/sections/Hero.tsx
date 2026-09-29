@@ -1,3 +1,4 @@
+import { SandText } from "@/components/motion/SandText";
 import { portfolio } from "@/content/portfolio";
 
 export function Hero() {
@@ -11,12 +12,22 @@ export function Hero() {
           </div>
 
           <h1 className="hero-title" aria-label="Tsegaye Teshome">
-            <span className="hero-title-line hero-title-primary js-hero-tsegaye">
+            <SandText
+              className="hero-title-line hero-title-primary"
+              delay={120}
+              colorToken="--ink"
+            >
               Tsegaye
-            </span>
-            <span className="hero-title-line hero-title-outline js-hero-teshome">
+            </SandText>
+
+            <SandText
+              className="hero-title-line hero-title-outline"
+              delay={680}
+              colorToken="--accent"
+              outline
+            >
               Teshome
-            </span>
+            </SandText>
           </h1>
 
           <div className="hero-bottom js-hero-item">
@@ -26,7 +37,10 @@ export function Hero() {
               <a className="hero-button hero-button-primary" href="#work">
                 Selected work <span aria-hidden="true">↘</span>
               </a>
-              <a className="hero-button hero-button-ghost" href={`mailto:${portfolio.email}`}>
+              <a
+                className="hero-button hero-button-ghost"
+                href={`mailto:${portfolio.email}`}
+              >
                 Start a project
               </a>
             </div>

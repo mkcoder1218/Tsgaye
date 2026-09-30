@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { AdminContentEditor } from "@/components/admin/AdminContentEditor";
 
 const categories = [
   { label: "Hero Image", slug: "hero-image" },
@@ -210,8 +211,8 @@ export function AdminUploader() {
       <section className="admin-panel">
         <div className="admin-heading">
           <div>
-            <p className="admin-eyebrow">Private portfolio uploader</p>
-            <h1>Upload Tsegaye&apos;s work.</h1>
+            <p className="admin-eyebrow">Private portfolio admin</p>
+            <h1>Manage Tsegaye&apos;s portfolio.</h1>
           </div>
           <div className="admin-heading-actions">
             <a href="/" className="admin-back">
@@ -223,6 +224,21 @@ export function AdminUploader() {
               </button>
             </form>
           </div>
+        </div>
+
+        <nav className="admin-section-nav" aria-label="Admin sections">
+          <a href="#content-editor">Content</a>
+          <a href="#image-uploader">Images</a>
+        </nav>
+
+        <AdminContentEditor />
+
+        <div className="admin-section-heading" id="image-uploader">
+          <div>
+            <span>02</span>
+            <h2>Portfolio images</h2>
+          </div>
+          <p>Upload images and choose where each one belongs.</p>
         </div>
 
         <div

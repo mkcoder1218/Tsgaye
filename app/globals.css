@@ -201,14 +201,16 @@ a {
 }
 
 .hero-title-secondary {
-  margin-left: clamp(22px, 5vw, 90px);
+  margin-left: 0;
   color: var(--accent);
   font-family: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
-  font-size: 0.83em;
+  font-size: 1em;
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.065em;
   text-transform: none;
+  transform: scaleX(1.7);
+  transform-origin: left center;
 }
 
 .hero-bottom {
@@ -741,6 +743,30 @@ a {
   font: italic 34rem/0.7 Georgia, serif;
 }
 
+.about-art-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.about-art.has-image::before,
+.about-art.has-image .about-letter {
+  display: none;
+}
+
+.about-art.has-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(11, 11, 13, 0.58), transparent 32%);
+  pointer-events: none;
+}
+
 .about-art small {
   position: absolute;
   left: 22px;
@@ -949,6 +975,8 @@ a {
 
   .hero-title-secondary {
     margin-left: 0;
+    font-size: 0.92em;
+    transform: scaleX(1.5);
   }
 
   .hero-bottom {

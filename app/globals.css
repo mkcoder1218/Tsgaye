@@ -200,16 +200,15 @@ a {
   font-weight: 950;
 }
 
-.hero-title-outline {
+.hero-title-secondary {
   margin-left: clamp(22px, 5vw, 90px);
-  color: transparent;
-  font-family: Georgia, "Times New Roman", serif;
+  color: var(--accent);
+  font-family: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
   font-size: 0.83em;
   font-style: italic;
-  font-weight: 700;
-  letter-spacing: -0.075em;
+  font-weight: 400;
+  letter-spacing: -0.065em;
   text-transform: none;
-  -webkit-text-stroke: 3px var(--accent);
 }
 
 .hero-bottom {
@@ -948,9 +947,8 @@ a {
     font-size: clamp(4.1rem, 20vw, 6.6rem);
   }
 
-  .hero-title-outline {
+  .hero-title-secondary {
     margin-left: 0;
-    -webkit-text-stroke-width: 2px;
   }
 
   .hero-bottom {

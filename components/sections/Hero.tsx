@@ -21,10 +21,9 @@ export function Hero() {
             </SandText>
 
             <SandText
-              className="hero-title-line hero-title-outline"
+              className="hero-title-line hero-title-secondary"
               delay={680}
               colorToken="--accent"
-              outline
             >
               Teshome
             </SandText>

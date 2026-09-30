@@ -720,29 +720,7 @@ a {
   position: relative;
   min-height: 650px;
   overflow: hidden;
-  isolation: isolate;
-  background: var(--white);
-  border: 2px solid var(--ink);
-  box-shadow: 12px 12px 0 var(--ink);
-}
-
-.about-art.has-image {
-  background: linear-gradient(180deg, #e9e4db 0%, #dcd6cc 100%);
-}
-
-.about-art.has-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: rgba(11, 11, 13, 0.34);
-  opacity: 1;
-  pointer-events: none;
-  transition: opacity 0.28s ease;
-}
-
-.about-art.has-image:hover::after {
-  opacity: 0.12;
+  background: transparent;
 }
 
 .about-letter {
@@ -757,28 +735,15 @@ a {
 .about-image-stage {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
   overflow: hidden;
-  will-change: transform;
 }
 
 .about-art-image {
-  width: auto;
+  width: 100%;
   height: 100%;
-  max-width: 94%;
   display: block;
-  object-fit: contain;
-  object-position: center bottom;
-  filter: contrast(1.03) saturate(0.98);
-  transition: transform 0.28s ease, filter 0.28s ease;
-}
-
-.about-art.has-image:hover .about-art-image {
-  transform: scale(1.02);
-  filter: contrast(1.06) saturate(1.02);
+  object-fit: cover;
+  object-position: center top;
 }
 
 .about-content {
@@ -823,7 +788,6 @@ a {
   color: var(--muted);
   line-height: 1.55;
 }
-
 /* Contact */
 
 .contact-section {
@@ -1074,7 +1038,6 @@ a {
 
   .about-art {
     min-height: 430px;
-    box-shadow: 7px 7px 0 var(--ink);
   }
 
   .about-letter {

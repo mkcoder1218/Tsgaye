@@ -16,38 +16,26 @@ export async function About() {
       />
 
       <div className="about-grid">
-        <div
-          className={`about-art js-reveal${aboutImage ? " has-image" : ""}`}
-          aria-hidden="true"
-        >
+        <div className={`about-art${aboutImage ? " has-image" : ""}`}>
           {aboutImage ? (
-            <>
-              <div className="about-image-wrap js-about-image">
-                <img
-                  className="about-art-image"
-                  src={aboutImage}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="about-color-slab" />
-              <div className="about-dot-field" />
-            </>
+            <div className="about-image-stage">
+              <img
+                className="about-art-image"
+                src={aboutImage}
+                alt={`${portfolio.name} portrait`}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </div>
           ) : (
             <span className="about-letter">T</span>
           )}
-
-          <div className="about-image-tag">
-            <span>03</span>
-            <strong>Portrait</strong>
-          </div>
-
-          <small>Designer / Engineer / Creator</small>
         </div>
 
         <div className="about-content js-about-copy">
           <p className="about-copy">{portfolio.about}</p>
+
           <div className="timeline">
             {portfolio.experience.map((job) => (
               <article
@@ -55,6 +43,7 @@ export async function About() {
                 key={`${job.period}-${job.company}`}
               >
                 <time>{job.period}</time>
+
                 <div>
                   <h3>{job.company}</h3>
                   <p>{job.description}</p>

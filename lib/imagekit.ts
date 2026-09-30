@@ -23,7 +23,7 @@ function getOptimizedImageUrl(
 
 export async function getLatestPortfolioImage(
   category: string,
-  optimization?: ImageOptimizationOptions,
+  optimization: ImageOptimizationOptions = {},
 ): Promise<string | null> {
   const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
 
@@ -37,11 +37,12 @@ export async function getLatestPortfolioImage(
 
   try {
     const authorization = Buffer.from(`${privateKey}:`).toString("base64");
+
     const response = await fetch(endpoint, {
-      cache: "no-store",
       headers: {
         Authorization: `Basic ${authorization}`,
       },
+      next: { revalidate: 300 },
     });
 
     if (!response.ok) {

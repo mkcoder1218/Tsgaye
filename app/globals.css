@@ -713,134 +713,51 @@ a {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: clamp(36px, 7vw, 100px);
+  align-items: start;
 }
 
 .about-art {
   position: relative;
   min-height: 650px;
-  display: grid;
-  place-items: center;
   overflow: hidden;
-  isolation: isolate;
-  color: var(--white);
-  background:
-    linear-gradient(135deg, var(--accent-dark), var(--accent));
+  background: var(--white);
   border: 2px solid var(--ink);
   box-shadow: 12px 12px 0 var(--ink);
 }
 
-.about-art::before {
-  content: "";
-  position: absolute;
-  width: 72%;
-  aspect-ratio: 1;
-  border: 2px solid var(--highlight);
-  border-radius: 50%;
+.about-art.has-image {
+  background: linear-gradient(180deg, #f7f3ec 0%, #ece6dc 100%);
 }
 
 .about-letter {
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
   color: var(--highlight);
   font: italic 34rem/0.7 Georgia, serif;
 }
 
-.about-image-wrap {
+.about-image-stage {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   overflow: hidden;
-  will-change: transform, clip-path;
+  will-change: transform;
 }
 
 .about-art-image {
   width: 100%;
-  height: 108%;
-  object-fit: cover;
-  object-position: center top;
-  filter: saturate(0.94) contrast(1.03);
-  transform: translateY(-2%);
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: contrast(1.02) saturate(0.98);
 }
 
-.about-color-slab {
-  position: absolute;
-  z-index: 2;
-  width: 42%;
-  height: 12px;
-  top: 26px;
-  right: -6%;
-  background: var(--accent);
-  transform: rotate(-4deg);
-  mix-blend-mode: multiply;
-}
-
-.about-dot-field {
-  position: absolute;
-  right: 18px;
-  bottom: 78px;
-  z-index: 3;
-  width: 122px;
-  height: 122px;
-  opacity: 0.58;
-  background-image: radial-gradient(var(--highlight) 1.6px, transparent 1.6px);
-  background-size: 13px 13px;
-  transform: rotate(8deg);
-}
-
-.about-art.has-image::before,
-.about-art.has-image .about-letter {
-  display: none;
-}
-
-.about-art.has-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    linear-gradient(180deg, rgba(184, 92, 59, 0.08) 0 36%, transparent 62%),
-    linear-gradient(to top, rgba(11, 11, 13, 0.72), transparent 34%);
-  pointer-events: none;
-}
-
-.about-image-tag {
-  position: absolute;
-  top: 22px;
-  left: 22px;
-  z-index: 4;
-  min-width: 102px;
-  padding: 11px 13px;
-  display: grid;
-  gap: 3px;
-  color: var(--ink);
-  background: var(--highlight);
-  border: 2px solid var(--ink);
-  box-shadow: 5px 5px 0 var(--ink);
-  transform: rotate(-3deg);
-}
-
-.about-image-tag span {
-  color: var(--accent-dark);
-  font-size: 0.66rem;
-  font-weight: 950;
-  letter-spacing: 0.14em;
-}
-
-.about-image-tag strong {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.about-art small {
-  position: absolute;
-  left: 22px;
-  bottom: 22px;
-  z-index: 3;
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.about-content {
+  min-width: 0;
 }
 
 .about-copy {
@@ -850,10 +767,6 @@ a {
   font-weight: 700;
   line-height: 1.13;
   letter-spacing: -0.05em;
-}
-
-.about-copy::first-line {
-  color: var(--accent-dark);
 }
 
 .timeline {
@@ -1137,17 +1050,6 @@ a {
   .about-art {
     min-height: 430px;
     box-shadow: 7px 7px 0 var(--ink);
-  }
-
-  .about-dot-field {
-    width: 92px;
-    height: 92px;
-    bottom: 66px;
-  }
-
-  .about-image-tag {
-    top: 16px;
-    left: 16px;
   }
 
   .about-letter {

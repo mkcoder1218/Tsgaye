@@ -79,30 +79,12 @@ export function PortfolioMotion({ children }: PortfolioMotionProps) {
         },
       });
 
-      const aboutImage = document.querySelector<HTMLElement>(".js-about-image");
+      const aboutImage =
+        document.querySelector<HTMLElement>(".about-image-stage");
 
       if (aboutImage) {
-        gsap.fromTo(
-          aboutImage,
-          {
-            clipPath: "inset(100% 0 0 0)",
-            scale: 1.08,
-          },
-          {
-            clipPath: "inset(0% 0 0 0)",
-            scale: 1,
-            duration: 1.15,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: ".about-art",
-              start: "top 82%",
-              once: true,
-            },
-          },
-        );
-
         gsap.to(aboutImage, {
-          yPercent: 6,
+          yPercent: 4,
           ease: "none",
           scrollTrigger: {
             trigger: ".about-art",
@@ -114,26 +96,26 @@ export function PortfolioMotion({ children }: PortfolioMotionProps) {
       }
 
       gsap.from(".js-about-copy", {
-        x: 46,
+        x: 30,
         opacity: 0,
-        duration: 0.95,
+        duration: 0.75,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".js-about-copy",
-          start: "top 84%",
+          start: "top 88%",
           once: true,
         },
       });
 
       gsap.from(".js-about-timeline-row", {
-        x: 36,
+        x: 24,
         opacity: 0,
-        duration: 0.72,
-        stagger: 0.12,
+        duration: 0.65,
+        stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".timeline",
-          start: "top 86%",
+          start: "top 88%",
           once: true,
         },
       });

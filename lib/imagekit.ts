@@ -4,8 +4,26 @@ type ImageKitFile = {
   createdAt?: string;
 };
 
+type ImageOptimizationOptions = {
+  width?: number;
+  quality?: number;
+};
+
+function getOptimizedImageUrl(
+  url: string,
+  { width = 1200, quality = 82 }: ImageOptimizationOptions = {},
+) {
+  const optimized = new URL(url);
+  optimized.searchParams.set(
+    "tr",
+    `w-${width},q-${quality},f-auto,pr-true`,
+  );
+  return optimized.toString();
+}
+
 export async function getLatestPortfolioImage(
   category: string,
+  optimization?: ImageOptimizationOptions,
 ): Promise<string | null> {
   const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
 
@@ -43,7 +61,9 @@ export async function getLatestPortfolioImage(
         return bTime - aTime;
       })[0];
 
-    return latest?.url ?? null;
+    return latest?.url
+      ? getOptimizedImageUrl(latest.url, optimization)
+      : null;
   } catch (error) {
     console.error(`Could not load ImageKit image for ${category}.`, error);
     return null;

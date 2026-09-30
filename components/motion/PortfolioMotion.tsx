@@ -78,6 +78,65 @@ export function PortfolioMotion({ children }: PortfolioMotionProps) {
           scrub: true,
         },
       });
+
+      const aboutImage = document.querySelector<HTMLElement>(".js-about-image");
+
+      if (aboutImage) {
+        gsap.fromTo(
+          aboutImage,
+          {
+            clipPath: "inset(100% 0 0 0)",
+            scale: 1.08,
+          },
+          {
+            clipPath: "inset(0% 0 0 0)",
+            scale: 1,
+            duration: 1.15,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: ".about-art",
+              start: "top 82%",
+              once: true,
+            },
+          },
+        );
+
+        gsap.to(aboutImage, {
+          yPercent: 6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".about-art",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      gsap.from(".js-about-copy", {
+        x: 46,
+        opacity: 0,
+        duration: 0.95,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".js-about-copy",
+          start: "top 84%",
+          once: true,
+        },
+      });
+
+      gsap.from(".js-about-timeline-row", {
+        x: 36,
+        opacity: 0,
+        duration: 0.72,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".timeline",
+          start: "top 86%",
+          once: true,
+        },
+      });
     },
     { scope: root },
   );

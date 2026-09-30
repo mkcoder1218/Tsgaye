@@ -3,7 +3,10 @@ import { portfolio } from "@/content/portfolio";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export async function About() {
-  const aboutImage = await getLatestPortfolioImage("about-me");
+  const aboutImage = await getLatestPortfolioImage("about-me", {
+    width: 1200,
+    quality: 82,
+  });
 
   return (
     <section className="section shell" id="about">
@@ -18,19 +21,37 @@ export async function About() {
           aria-hidden="true"
         >
           {aboutImage ? (
-            <img className="about-art-image" src={aboutImage} alt="" />
+            <>
+              <div className="about-image-wrap js-about-image">
+                <img
+                  className="about-art-image"
+                  src={aboutImage}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="about-color-slab" />
+              <div className="about-dot-field" />
+            </>
           ) : (
             <span className="about-letter">T</span>
           )}
+
+          <div className="about-image-tag">
+            <span>03</span>
+            <strong>Portrait</strong>
+          </div>
+
           <small>Designer / Engineer / Creator</small>
         </div>
 
-        <div className="about-content js-reveal">
+        <div className="about-content js-about-copy">
           <p className="about-copy">{portfolio.about}</p>
           <div className="timeline">
             {portfolio.experience.map((job) => (
               <article
-                className="timeline-row"
+                className="timeline-row js-about-timeline-row"
                 key={`${job.period}-${job.company}`}
               >
                 <time>{job.period}</time>

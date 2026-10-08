@@ -2375,3 +2375,73 @@ body {
   .about-copy { font-size: clamp(1.12rem, 1.45vw, 1.5rem); }
 }
 
+
+/* Every desktop project card and heading fits in the work frame. */
+@media (min-width: 1101px) {
+  .work-section {
+    padding-top: clamp(20px, 3vh, 36px) !important;
+    padding-bottom: clamp(20px, 3vh, 36px) !important;
+  }
+
+  .work-section .section-heading {
+    margin-bottom: clamp(12px, 2vh, 22px) !important;
+  }
+
+  .work-section .section-heading h2 {
+    font-size: clamp(2.2rem, 3.35vw, 3.6rem) !important;
+    line-height: 1.02;
+    max-width: 790px;
+  }
+
+  .work-section .work-lead {
+    margin: 0 0 clamp(10px, 1.7vh, 18px) auto !important;
+  }
+
+  .work-section .work-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(8px, 1vw, 16px);
+    align-items: start;
+  }
+
+  .work-section .work-card {
+    grid-column: auto;
+    transform: none;
+    min-width: 0;
+  }
+
+  .work-section .work-media { padding: 5px; }
+
+  .work-section .portfolio-placeholder {
+    min-height: 0;
+    height: clamp(130px, 28vh, 270px);
+  }
+
+  .work-section .portfolio-placeholder-name strong {
+    font-size: clamp(1rem, 1.5vw, 1.65rem);
+    overflow-wrap: anywhere;
+  }
+
+  .work-section .work-caption {
+    padding-top: 8px;
+  }
+
+  .work-section .work-caption h3 {
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1100px) {
+  .work-section .section-heading h2 {
+    font-size: clamp(2.1rem, 4vw, 3.2rem);
+  }
+  .work-section .portfolio-placeholder {
+    min-height: 0;
+    height: clamp(175px, 31vh, 300px);
+  }
+}
+
+@media (max-height: 700px) and (min-width: 1101px) {
+  .work-section .portfolio-placeholder {
+    height: clamp(105px, 22vh, 170px);
+  }
+}

@@ -43,6 +43,35 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
 
     active = resolveActive();
 
+    // Section-specific choreography runs as each snap enters the viewport.
+    const sectionTriggers = sections.map((section, index) => {
+      const headline = section.querySelector<HTMLElement>(".section-heading h2, .contact-heading");
+      const eyebrow = section.querySelector<HTMLElement>(".section-eyebrow");
+      const items = Array.from(section.querySelectorAll<HTMLElement>(
+        ".service-card, .work-card, .about-art, .about-content, .contact-grid > div",
+      ));
+      const play = () => {
+        if (index === 0) return;
+        const choreography = gsap.timeline({ defaults: { ease: "power3.out" } });
+        if (eyebrow) choreography.fromTo(eyebrow,
+          { opacity: 0, x: -24 },
+          { opacity: 1, x: 0, duration: 0.45, immediateRender: false }, 0);
+        if (headline) choreography.fromTo(headline,
+          { opacity: 0, y: 54, rotateX: 7 },
+          { opacity: 1, y: 0, rotateX: 0, duration: 0.75, immediateRender: false }, 0.06);
+        if (items.length) choreography.fromTo(items,
+          { opacity: 0, y: 42, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.75, stagger: 0.09,
+            immediateRender: false }, 0.2);
+      };
+      return ScrollTrigger.create({
+        trigger: section,
+        start: "top 65%",
+        onEnter: play,
+        onEnterBack: play,
+      });
+    });
+
     const animateTo = (target: number, nextIndex: number) => {
       if (locked) return;
       locked = true;
@@ -198,6 +227,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
 
     return () => {
       scrollTween?.kill();
+      sectionTriggers.forEach((trigger) => trigger.kill());
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("touchstart", onTouchStart);

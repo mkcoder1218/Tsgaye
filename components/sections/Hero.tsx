@@ -77,14 +77,6 @@ export function Hero() {
           </span>
         </div>
       </div>
-
-      <div className="hero-marquee js-hero-item" aria-hidden="true">
-        <div>
-          Brand identity · Art direction · Posters · Digital promotion · 3D ·
-          Social design · Brand identity · Art direction · Posters · Digital
-          promotion · 3D · Social design ·
-        </div>
-      </div>
     </section>
   );
 }

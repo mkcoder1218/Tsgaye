@@ -139,6 +139,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
     };
 
     const onWheel = (event: WheelEvent) => {
+      if (host.querySelector(".work-detail-overlay")) return;
       if (event.ctrlKey || event.metaKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
       const delta = event.deltaMode === 1 ? event.deltaY * 16
         : event.deltaMode === 2 ? event.deltaY * innerHeight : event.deltaY;
@@ -160,6 +161,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
     };
 
     const onKey = (event: KeyboardEvent) => {
+      if (host.querySelector(".work-detail-overlay")) return;
       if (event.altKey || event.ctrlKey || event.metaKey ||
           (event.target instanceof HTMLElement &&
           event.target.closest("input, textarea, select, [contenteditable]"))) return;
@@ -184,6 +186,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
       touchX = event.touches[0].clientX;
     };
     const onTouchMove = (event: TouchEvent) => {
+      if (host.querySelector(".work-detail-overlay")) return;
       if (event.touches.length !== 1) return;
       const dy = touchY - event.touches[0].clientY;
       const dx = touchX - event.touches[0].clientX;
@@ -191,6 +194,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
           !nestedCanScroll(event.target, Math.sign(dy))) event.preventDefault();
     };
     const onTouchEnd = (event: TouchEvent) => {
+      if (host.querySelector(".work-detail-overlay")) return;
       if (!event.changedTouches.length) return;
       const dy = touchY - event.changedTouches[0].clientY;
       const dx = touchX - event.changedTouches[0].clientX;

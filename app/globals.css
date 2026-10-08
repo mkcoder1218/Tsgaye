@@ -1,14 +1,22 @@
 :root {
-  --paper: #f3f0e8;
-  --paper-strong: #e8e2d6;
-  --ink: #0b0b0d;
-  --muted: #66645f;
-  --line: rgba(11, 11, 13, 0.16);
-  --accent: #b85c3b;
-  --accent-dark: #8f432c;
-  --highlight: #c8bd83;
+  color-scheme: dark;
+  --paper: #070b12;
+  --paper-strong: #0c1320;
+  --surface: #101826;
+  --surface-strong: #151f30;
+  --ink: #f5f7fb;
+  --muted: #9aa7b8;
+  --line: rgba(126, 158, 210, 0.22);
+  --accent: #d87552;
+  --accent-dark: #b85738;
+  --highlight: #c9b86f;
   --white: #fffdf7;
-  --shadow: 0 24px 70px rgba(11, 11, 13, 0.10);
+  --blue: #4f8cff;
+  --blue-soft: rgba(79, 140, 255, 0.18);
+  --blue-line: rgba(102, 158, 255, 0.34);
+  --shadow: 0 24px 70px rgba(43, 111, 255, 0.22), 0 0 0 1px rgba(92, 149, 255, 0.10);
+  --shadow-soft: 0 16px 46px rgba(43, 111, 255, 0.15);
+  --shadow-sharp: 8px 8px 0 rgba(79, 140, 255, 0.28), 0 18px 42px rgba(32, 94, 210, 0.16);
 }
 
 * {
@@ -23,8 +31,8 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    linear-gradient(rgba(11, 11, 13, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11, 11, 13, 0.025) 1px, transparent 1px),
+    linear-gradient(rgba(116, 157, 227, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(116, 157, 227, 0.045) 1px, transparent 1px),
     var(--paper);
   background-size: 42px 42px;
   font-family: Arial, Helvetica, sans-serif;
@@ -51,7 +59,7 @@ a {
   top: 0;
   z-index: 30;
   border-bottom: 1px solid var(--line);
-  background: rgba(243, 240, 232, 0.88);
+  background: rgba(7, 11, 18, 0.86);
   backdrop-filter: blur(20px);
 }
 
@@ -275,7 +283,7 @@ a {
   z-index: 2;
   padding: 14px;
   border: 2px solid var(--ink);
-  background: var(--white);
+  background: var(--surface);
   transform: rotate(2.6deg);
   box-shadow: var(--shadow);
 }
@@ -363,7 +371,7 @@ a {
   position: absolute;
   z-index: 5;
   border: 2px solid var(--ink);
-  box-shadow: 8px 8px 0 var(--ink);
+  box-shadow: var(--shadow-sharp);
 }
 
 .hero-sticker-top {
@@ -509,7 +517,7 @@ a {
   color: var(--white);
   background: var(--accent);
   transform: translate(-7px, -7px);
-  box-shadow: 7px 7px 0 var(--ink);
+  box-shadow: var(--shadow-sharp);
 }
 
 .service-number {
@@ -583,7 +591,7 @@ a {
 .work-media {
   padding: 12px;
   border: 2px solid var(--ink);
-  background: var(--white);
+  background: var(--surface);
 }
 
 .portfolio-placeholder {
@@ -609,7 +617,7 @@ a {
 .portfolio-placeholder-3 {
   background:
     linear-gradient(90deg, var(--accent) 0 18%, transparent 18%),
-    repeating-linear-gradient(0deg, transparent 0 50px, rgba(11, 11, 13, 0.12) 50px 51px),
+    repeating-linear-gradient(0deg, transparent 0 50px, rgba(112, 154, 228, 0.16) 50px 51px),
     var(--white);
 }
 
@@ -1169,7 +1177,7 @@ a {
   border-radius: 0;
   padding: 0 14px;
   color: var(--ink);
-  background: var(--white);
+  background: var(--surface);
   font: inherit;
 }
 
@@ -1497,8 +1505,8 @@ a {
   place-items: center;
   padding: 28px;
   background:
-    linear-gradient(rgba(11, 11, 13, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11, 11, 13, 0.025) 1px, transparent 1px),
+    linear-gradient(rgba(116, 157, 227, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(116, 157, 227, 0.045) 1px, transparent 1px),
     var(--paper);
   background-size: 42px 42px;
 }
@@ -1507,8 +1515,8 @@ a {
   width: min(560px, 100%);
   padding: clamp(28px, 6vw, 58px);
   border: 2px solid var(--ink);
-  background: var(--white);
-  box-shadow: 12px 12px 0 var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow-sharp);
 }
 
 .admin-login-card h1 {
@@ -1632,7 +1640,7 @@ a {
   padding: 8px;
   border: 2px solid var(--ink);
   background: var(--paper);
-  box-shadow: 5px 5px 0 var(--ink);
+  box-shadow: var(--shadow-sharp);
 }
 
 .admin-section-nav a {
@@ -1698,7 +1706,7 @@ a {
 .admin-content-card {
   padding: 24px;
   border: 2px solid var(--ink);
-  background: rgba(255, 253, 247, 0.72);
+  background: rgba(16, 24, 38, 0.82);
 }
 
 .admin-content-card > header {
@@ -1752,7 +1760,7 @@ a {
   border-radius: 0;
   padding: 12px 13px;
   color: var(--ink);
-  background: var(--white);
+  background: var(--surface);
   font: inherit;
 }
 
@@ -1794,9 +1802,9 @@ a {
   align-items: center;
   gap: 18px;
   border: 2px solid var(--ink);
-  background: rgba(243, 240, 232, 0.96);
+  background: rgba(7, 11, 18, 0.94);
   backdrop-filter: blur(12px);
-  box-shadow: 7px 7px 0 var(--ink);
+  box-shadow: var(--shadow-sharp);
 }
 
 .admin-content-actions p {
@@ -1872,4 +1880,103 @@ a {
   .admin-content-actions button {
     width: 100%;
   }
+}
+
+
+/* Dark portfolio depth + blue glow */
+.site-header {
+  box-shadow: 0 10px 34px rgba(23, 75, 172, 0.12);
+}
+
+.nav-cta,
+.hero-button,
+.admin-content-actions button,
+.admin-login-form button {
+  box-shadow: 0 10px 28px rgba(79, 140, 255, 0.12);
+}
+
+.nav-cta:hover,
+.hero-button:hover,
+.admin-content-actions button:hover,
+.admin-login-form button:hover {
+  box-shadow: 0 14px 34px rgba(79, 140, 255, 0.26);
+}
+
+.hero-image-frame,
+.work-media {
+  border-color: rgba(217, 228, 247, 0.76);
+  box-shadow: var(--shadow);
+}
+
+.service-card,
+.admin-content-card,
+.admin-login-card,
+.admin-section-nav,
+.admin-content-actions {
+  border-color: rgba(210, 224, 247, 0.72);
+}
+
+.service-card:hover,
+.work-media:hover,
+.admin-content-card:focus-within {
+  box-shadow: var(--shadow-sharp);
+}
+
+.hero-orbit-one {
+  box-shadow: 0 0 72px rgba(79, 140, 255, 0.30);
+}
+
+.hero-orbit-two {
+  box-shadow: 0 0 54px rgba(79, 140, 255, 0.20);
+}
+
+.hero-button-primary {
+  box-shadow: 0 12px 36px rgba(79, 140, 255, 0.22);
+}
+
+.hero-button-primary:hover {
+  box-shadow: 0 16px 42px rgba(79, 140, 255, 0.34);
+}
+
+input,
+textarea,
+select {
+  caret-color: var(--blue);
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.admin-content-field input,
+.admin-content-field textarea,
+.admin-passcode input,
+.admin-category select,
+.admin-login-form input {
+  border-color: rgba(181, 204, 242, 0.54);
+  background: var(--surface);
+}
+
+.admin-content-field input:focus,
+.admin-content-field textarea:focus,
+.admin-passcode input:focus,
+.admin-category select:focus,
+.admin-login-form input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.12);
+}
+
+.admin-content-message.is-success {
+  color: #9ee6a1;
+  background: rgba(38, 120, 70, 0.18);
+}
+
+.admin-content-message.is-error {
+  color: #ffaaa0;
+  background: rgba(162, 54, 37, 0.18);
 }

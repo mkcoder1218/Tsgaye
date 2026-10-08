@@ -2061,3 +2061,32 @@ a:focus-visible {
     will-change: auto;
   }
 }
+
+
+/* Cinematic section-by-section GSAP navigation */
+@media (min-width: 821px) and (prefers-reduced-motion: no-preference) {
+  main > section {
+    min-height: 100svh;
+    scroll-margin-top: 76px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  main > section.hero {
+    min-height: calc(100svh - 76px);
+  }
+
+  main > section.section {
+    padding-top: clamp(48px, 5vh, 90px);
+    padding-bottom: clamp(48px, 5vh, 90px);
+  }
+
+  main > section .section-heading {
+    margin-bottom: clamp(30px, 5vh, 65px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

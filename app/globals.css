@@ -2789,3 +2789,15 @@ body {
   .work-editorial .work-editorial-grid { height: clamp(320px, 46vh, 450px); }
   .work-editorial .work-caption p { display: none; }
 }
+
+/* Display the uploaded Hero Image in the existing artwork frame. */
+.hero-image-frame {
+  overflow: hidden;
+}
+.hero-uploaded-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}

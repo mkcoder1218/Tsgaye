@@ -1,7 +1,13 @@
 import { CinematicText } from "@/components/motion/CinematicText";
 import { portfolio } from "@/content/portfolio";
+import { getLatestPortfolioImage } from "@/lib/imagekit";
 
-export function Hero() {
+export async function Hero() {
+  const heroImage = await getLatestPortfolioImage("hero-image", {
+    width: 1200,
+    quality: 85,
+  });
+
   return (
     <section className="hero shell" id="top">
       <div className="hero-grid">
@@ -49,15 +55,26 @@ export function Hero() {
           <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
 
           <div className="hero-image-frame">
-            <div className="image-placeholder">
-              <span className="image-placeholder-label">Portrait / Artwork</span>
-              <span className="image-placeholder-mark">+</span>
-              <span className="image-placeholder-copy">
-                Replace with
-                <br />
-                Tsegaye&apos;s image
-              </span>
-            </div>
+            {heroImage ? (
+              <img
+                className="hero-uploaded-image"
+                src={heroImage}
+                alt={`${portfolio.name} featured artwork`}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
+            ) : (
+              <div className="image-placeholder">
+                <span className="image-placeholder-label">Portrait / Artwork</span>
+                <span className="image-placeholder-mark">+</span>
+                <span className="image-placeholder-copy">
+                  Replace with
+                  <br />
+                  Tsegaye&apos;s image
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="hero-sticker hero-sticker-top">

@@ -42,7 +42,7 @@ export async function getLatestPortfolioImage(
       headers: {
         Authorization: `Basic ${authorization}`,
       },
-      next: { revalidate: 300 },
+      next: { revalidate: 60 },
     });
 
     if (!response.ok) {
@@ -84,7 +84,7 @@ export async function getPortfolioImages(
     const authorization = Buffer.from(`${privateKey}:`).toString("base64");
     const response = await fetch(endpoint, {
       headers: { Authorization: `Basic ${authorization}` },
-      next: { revalidate: 300 },
+      next: { revalidate: 60 },
     });
     if (!response.ok) return [];
     const files = (await response.json()) as ImageKitFile[];

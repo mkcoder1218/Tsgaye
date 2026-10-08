@@ -26,21 +26,52 @@ export function PortfolioMotion({ children }: PortfolioMotionProps) {
         return;
       }
 
-      gsap.from(".js-hero-item", {
-        y: 24,
+      const entrance = gsap.timeline({ delay: 0.12 });
+
+      entrance.from(".js-hero-item", {
+        y: 68,
         opacity: 0,
-        duration: 0.75,
-        stagger: 0.08,
-        delay: 0.32,
+        duration: 1.35,
+        stagger: 0.14,
+        ease: "expo.out",
+      });
+
+      // Let the sand lettering animate independently; only move its container.
+      entrance.from(".hero-title", {
+        y: 36,
+        opacity: 0,
+        duration: 1.1,
         ease: "power4.out",
+      }, 0.12);
+
+      gsap.to(".hero-copy", {
+        yPercent: -9,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.2,
+        },
+      });
+
+      gsap.to(".hero-art", {
+        yPercent: 8,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.4,
+        },
       });
 
       gsap.utils.toArray<HTMLElement>(".js-reveal").forEach((element) => {
         gsap.from(element, {
-          y: 42,
+          y: 90,
           opacity: 0,
-          duration: 0.9,
-          ease: "power3.out",
+          duration: 1.25,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: element,
             start: "top 84%",
@@ -55,11 +86,11 @@ export function PortfolioMotion({ children }: PortfolioMotionProps) {
           const items = group.querySelectorAll(".js-stagger-item");
 
           gsap.from(items, {
-            y: 48,
+            y: 85,
             opacity: 0,
-            duration: 0.85,
-            stagger: 0.08,
-            ease: "power3.out",
+            duration: 1.2,
+            stagger: 0.14,
+            ease: "expo.out",
             scrollTrigger: {
               trigger: group,
               start: "top 82%",
@@ -67,6 +98,24 @@ export function PortfolioMotion({ children }: PortfolioMotionProps) {
             },
           });
         });
+
+      gsap.utils.toArray<HTMLElement>(".work-card").forEach((card) => {
+        const media = card.querySelector<HTMLElement>(".work-media");
+        if (!media) return;
+
+        gsap.fromTo(media, {
+          scale: 0.94,
+        }, {
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom",
+            end: "top 35%",
+            scrub: 1,
+          },
+        });
+      });
 
       gsap.to(".about-letter", {
         yPercent: -10,

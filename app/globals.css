@@ -31,8 +31,7 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    linear-gradient(rgba(116, 157, 227, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(116, 157, 227, 0.045) 1px, transparent 1px),
+    radial-gradient(ellipse at 72% 11%, rgba(29, 70, 139, 0.10), transparent 48%),
     var(--paper);
   background-size: 42px 42px;
   font-family: Arial, Helvetica, sans-serif;
@@ -1505,8 +1504,7 @@ a {
   place-items: center;
   padding: 28px;
   background:
-    linear-gradient(rgba(116, 157, 227, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(116, 157, 227, 0.045) 1px, transparent 1px),
+    radial-gradient(ellipse at 72% 11%, rgba(29, 70, 139, 0.10), transparent 48%),
     var(--paper);
   background-size: 42px 42px;
 }
@@ -1979,4 +1977,87 @@ a:focus-visible {
 .admin-content-message.is-error {
   color: #ffaaa0;
   background: rgba(162, 54, 37, 0.18);
+}
+
+/* Cinematic staging: solid backdrop, oversized type, and layered movement */
+.hero {
+  isolation: isolate;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: min(74vw, 980px);
+  height: min(74vw, 980px);
+  top: 0;
+  right: -32%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(35, 80, 161, 0.15), transparent 65%);
+  filter: blur(32px);
+}
+
+.hero-title {
+  perspective: 1000px;
+  text-shadow: 0 22px 75px rgba(22, 53, 108, 0.20);
+}
+
+.hero-title-line {
+  transform-origin: 50% 75%;
+  will-change: transform;
+}
+
+.hero-title-secondary {
+  text-shadow: 0 16px 58px rgba(216, 117, 82, 0.14);
+}
+
+.section-eyebrow,
+.hero-kicker {
+  letter-spacing: 0.2em;
+}
+
+.work-card {
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.work-media {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.work-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(79, 140, 255, 0.10), transparent 44%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.work-card:hover .work-media::after {
+  opacity: 1;
+}
+
+.work-card:hover .work-media {
+  border-color: var(--blue-line);
+  box-shadow: 0 24px 70px rgba(35, 95, 211, 0.25);
+}
+
+.contact-heading a {
+  transition: text-shadow 0.35s ease, color 0.35s ease;
+}
+
+.contact-heading a:hover {
+  text-shadow: 0 0 46px rgba(79, 140, 255, 0.44);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-line,
+  .work-card {
+    will-change: auto;
+  }
 }

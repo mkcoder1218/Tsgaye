@@ -51,7 +51,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
       scrollTween?.kill();
       scrollTween = gsap.to(position, {
         y: clamp(target),
-        duration: 1,
+        duration: 0.62,
         ease: "power3.inOut",
         overwrite: true,
         onUpdate: () => {
@@ -63,7 +63,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
         onComplete: () => {
           active = nextIndex;
           // Guard against momentum events at the end of the animation.
-          lockedUntil = performance.now() + 260;
+          lockedUntil = performance.now() + 110;
           locked = false;
         },
         onInterrupt: () => { locked = false; },
@@ -125,7 +125,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
       lastWheel = now;
       intentDirection = direction;
       intent += Math.max(-120, Math.min(120, delta));
-      if (Math.abs(intent) < 120) return;
+      if (Math.abs(intent) < 75) return;
       intent = 0;
       navigate(direction);
     };

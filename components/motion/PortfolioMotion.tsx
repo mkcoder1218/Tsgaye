@@ -2,9 +2,10 @@
 
 import { useRef, type ReactNode } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export function PortfolioMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
@@ -14,130 +15,196 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
     if (!host || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const sections = Array.from(host.querySelectorAll<HTMLElement>("main > section"));
-    if (!sections.length) return;
+    if (sections.length < 2) return;
 
+    let active = 0;
     let locked = false;
-    let accumulated = 0;
-    let previousWheelAt = 0;
-    let tween: gsap.core.Tween | undefined;
-    let touchStart = 0;
+    let lockedUntil = 0;
+    let intent = 0;
+    let intentDirection = 0;
+    let lastWheel = 0;
+    let touchY = 0;
+    let touchX = 0;
+    let scrollTween: gsap.core.Tween | null = null;
+    let writingScroll = false;
 
-    const go = (index: number) => {
-      if (locked || index < 0 || index >= sections.length) return;
-      locked = true;
-      accumulated = 0;
-      const scroll = { y: window.scrollY };
-      const y = sections[index].getBoundingClientRect().top + window.scrollY;
-      tween?.kill();
-      tween = gsap.to(scroll, {
-        y,
-        duration: 1.12,
-        ease: "power3.inOut",
-        onUpdate: () => window.scrollTo(0, scroll.y),
-        onComplete: () => { locked = false; },
-        onInterrupt: () => { locked = false; },
-      });
-    };
+    const maxScroll = () => Math.max(0, document.documentElement.scrollHeight - innerHeight);
+    const topOf = (section: HTMLElement) => section.getBoundingClientRect().top + scrollY;
+    const clamp = (value: number) => Math.max(0, Math.min(maxScroll(), value));
 
-    const current = () => {
-      const y = window.scrollY + window.innerHeight * 0.35;
+    const resolveActive = () => {
+      const anchor = scrollY + innerHeight * 0.22;
       let index = 0;
       sections.forEach((section, i) => {
-        if (section.offsetTop <= y) index = i;
+        if (topOf(section) <= anchor + 2) index = i;
       });
       return index;
     };
 
-    const move = (direction: number) => {
-      const index = current();
-      const section = sections[index];
-      const at = window.scrollY;
-      const start = section.offsetTop;
-      const end = start + section.offsetHeight - window.innerHeight;
+    active = resolveActive();
 
-      // Longer sections retain their native scroll so no content is skipped.
-      if (direction > 0 && at < end - 12) {
-        goToPosition(Math.min(end, at + window.innerHeight * 0.7));
-      } else if (direction < 0 && at > start + 12) {
-        goToPosition(Math.max(start, at - window.innerHeight * 0.7));
-      } else {
-        go(index + direction);
-      }
-    };
-
-    const goToPosition = (y: number) => {
+    const animateTo = (target: number, nextIndex: number) => {
       if (locked) return;
       locked = true;
-      const scroll = { y: window.scrollY };
-      tween?.kill();
-      tween = gsap.to(scroll, {
-        y,
-        duration: 0.85,
+      intent = 0;
+      const position = { y: scrollY };
+      scrollTween?.kill();
+      scrollTween = gsap.to(position, {
+        y: clamp(target),
+        duration: 1,
         ease: "power3.inOut",
-        onUpdate: () => window.scrollTo(0, scroll.y),
-        onComplete: () => { locked = false; },
+        overwrite: true,
+        onUpdate: () => {
+          writingScroll = true;
+          window.scrollTo(0, position.y);
+          ScrollTrigger.update();
+          writingScroll = false;
+        },
+        onComplete: () => {
+          active = nextIndex;
+          // Guard against momentum events at the end of the animation.
+          lockedUntil = performance.now() + 260;
+          locked = false;
+        },
         onInterrupt: () => { locked = false; },
       });
     };
 
-    const wheel = (event: WheelEvent) => {
-      if (event.ctrlKey || event.metaKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
-      event.preventDefault();
-      if (locked) return;
-      if (performance.now() - previousWheelAt > 250) accumulated = 0;
-      previousWheelAt = performance.now();
-      accumulated += event.deltaMode === 1 ? event.deltaY * 16 : event.deltaY;
-      if (Math.abs(accumulated) >= 85) move(Math.sign(accumulated));
+    const navigate = (direction: number) => {
+      if (locked || performance.now() < lockedUntil) return;
+      active = resolveActive();
+      const section = sections[active];
+      const sectionTop = topOf(section);
+      const sectionBottom = sectionTop + section.offsetHeight - innerHeight;
+      const tolerance = 16;
+
+      // Mirror Genesis: one gesture always advances one section on desktop.
+      // On compact screens, tall sections remain readable before advancing.
+      const compact = window.matchMedia("(max-width: 820px)").matches;
+      if (compact && direction > 0 && sectionBottom > scrollY + tolerance) {
+        animateTo(Math.min(sectionBottom, scrollY + innerHeight * 0.85), active);
+        return;
+      }
+      if (compact && direction < 0 && scrollY > sectionTop + tolerance) {
+        animateTo(Math.max(sectionTop, scrollY - innerHeight * 0.85), active);
+        return;
+      }
+
+      const next = active + direction;
+      if (next < 0 || next >= sections.length) return;
+      animateTo(topOf(sections[next]), next);
     };
 
-    const key = (event: KeyboardEvent) => {
-      if (event.target instanceof HTMLElement && event.target.closest("input, textarea, select, [contenteditable]")) return;
+    const nestedCanScroll = (target: EventTarget | null, direction: number) => {
+      let element = target instanceof HTMLElement ? target : null;
+      while (element && element !== document.body) {
+        const style = getComputedStyle(element);
+        if ((style.overflowY === "auto" || style.overflowY === "scroll") &&
+          element.scrollHeight > element.clientHeight + 1 &&
+          (direction > 0
+            ? element.scrollTop + element.clientHeight < element.scrollHeight - 1
+            : element.scrollTop > 1)) return true;
+        element = element.parentElement;
+      }
+      return false;
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || event.metaKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      const delta = event.deltaMode === 1 ? event.deltaY * 16
+        : event.deltaMode === 2 ? event.deltaY * innerHeight : event.deltaY;
+      const direction = Math.sign(delta);
+      if (!direction || nestedCanScroll(event.target, direction)) return;
+
+      // Critical: stop native scrolling even while GSAP is transitioning.
+      event.preventDefault();
+      if (locked || performance.now() < lockedUntil) return;
+
+      const now = performance.now();
+      if (now - lastWheel > 190 || (intentDirection && intentDirection !== direction)) intent = 0;
+      lastWheel = now;
+      intentDirection = direction;
+      intent += Math.max(-120, Math.min(120, delta));
+      if (Math.abs(intent) < 120) return;
+      intent = 0;
+      navigate(direction);
+    };
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey ||
+          (event.target instanceof HTMLElement &&
+          event.target.closest("input, textarea, select, [contenteditable]"))) return;
       const direction = ["ArrowDown", "PageDown", " "].includes(event.key) ? 1
         : ["ArrowUp", "PageUp"].includes(event.key) ? -1 : 0;
       if (direction) {
+        if (nestedCanScroll(event.target, direction)) return;
         event.preventDefault();
-        if (!locked) move(direction);
+        navigate(direction);
       } else if (event.key === "Home" || event.key === "End") {
         event.preventDefault();
-        go(event.key === "Home" ? 0 : sections.length - 1);
+        if (!locked) {
+          const index = event.key === "Home" ? 0 : sections.length - 1;
+          animateTo(topOf(sections[index]), index);
+        }
       }
     };
 
-    const click = (event: MouseEvent) => {
-      const anchor = event.target instanceof Element
-        ? event.target.closest<HTMLAnchorElement>("a[href^='#']") : null;
-      const id = anchor?.getAttribute("href")?.slice(1);
-      if (!id) return;
-      const index = sections.findIndex((section) => section.id === id);
-      if (index < 0) return;
+    const onTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
+      touchY = event.touches[0].clientY;
+      touchX = event.touches[0].clientX;
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
+      const dy = touchY - event.touches[0].clientY;
+      const dx = touchX - event.touches[0].clientX;
+      if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx) &&
+          !nestedCanScroll(event.target, Math.sign(dy))) event.preventDefault();
+    };
+    const onTouchEnd = (event: TouchEvent) => {
+      if (!event.changedTouches.length) return;
+      const dy = touchY - event.changedTouches[0].clientY;
+      const dx = touchX - event.changedTouches[0].clientX;
+      if (Math.abs(dy) >= 45 && Math.abs(dy) > Math.abs(dx)) navigate(Math.sign(dy));
+    };
+
+    const onAnchor = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey) return;
+      const link = event.target instanceof Element
+        ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+      const hash = link?.getAttribute("href");
+      if (!hash || hash === "#") return;
+      const destination = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (!destination) return;
       event.preventDefault();
-      if (!locked) go(index);
-      window.history.replaceState(null, "", "#" + id);
+      const nextIndex = sections.findIndex(section => section === destination || section.contains(destination));
+      if (nextIndex >= 0 && !locked) animateTo(topOf(sections[nextIndex]), nextIndex);
+      history.pushState(null, "", hash);
     };
 
-    const touchEnd = (event: TouchEvent) => {
-      if (locked || !event.changedTouches.length) return;
-      const delta = touchStart - event.changedTouches[0].clientY;
-      if (Math.abs(delta) > 100) move(Math.sign(delta));
+    const onNativeScroll = () => {
+      ScrollTrigger.update();
+      if (!writingScroll && !locked) active = resolveActive();
     };
 
-    const touchBegin = (event: TouchEvent) => {
-      if (event.touches.length === 1) touchStart = event.touches[0].clientY;
-    };
-
-    window.addEventListener("wheel", wheel, { passive: false });
-    window.addEventListener("keydown", key);
-    host.addEventListener("click", click);
-    window.addEventListener("touchstart", touchBegin, { passive: true });
-    window.addEventListener("touchend", touchEnd, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("scroll", onNativeScroll, { passive: true });
+    host.addEventListener("click", onAnchor);
+    ScrollTrigger.refresh();
 
     return () => {
-      tween?.kill();
-      window.removeEventListener("wheel", wheel);
-      window.removeEventListener("keydown", key);
-      host.removeEventListener("click", click);
-      window.removeEventListener("touchstart", touchBegin);
-      window.removeEventListener("touchend", touchEnd);
+      scrollTween?.kill();
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("scroll", onNativeScroll);
+      host.removeEventListener("click", onAnchor);
     };
   }, { scope: root });
 

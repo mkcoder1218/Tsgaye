@@ -1,9 +1,9 @@
 :root {
   color-scheme: dark;
-  --paper: #090d14;
-  --paper-strong: #101720;
-  --surface: #141e29;
-  --surface-strong: #1a2735;
+  --paper: #0b0907;
+  --paper-strong: #16110d;
+  --surface: #1b1611;
+  --surface-strong: #241c14;
   --ink: #f5f7fb;
   --muted: #9aa7b8;
   --line: rgba(220, 182, 109, 0.22);
@@ -2807,4 +2807,22 @@ body {
   --gold: #dcb66d;
   --gold-soft: rgba(220, 182, 109, 0.18);
   --gold-line: rgba(220, 182, 109, 0.34);
+}
+
+/* Warm-black foundation: low-saturation gold illumination, never a gold fill. */
+html { background: #0b0907; }
+body {
+  background-color: #0b0907;
+  background-image:
+    radial-gradient(ellipse 68% 62% at 82% 18%, rgba(149, 100, 35, 0.095), transparent 72%),
+    radial-gradient(ellipse 58% 65% at 8% 86%, rgba(109, 70, 26, 0.065), transparent 75%),
+    linear-gradient(145deg, #100d09 0%, #0b0907 48%, #0a0908 100%);
+  background-attachment: fixed;
+}
+.site-header {
+  background: rgba(14, 11, 8, 0.93);
+  border-bottom-color: rgba(220, 182, 109, 0.17);
+}
+.hero::before {
+  background: radial-gradient(circle, rgba(169, 113, 37, 0.105), transparent 68%);
 }

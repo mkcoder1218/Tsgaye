@@ -48,7 +48,7 @@ export function PortfolioMotion({ children }: { children: ReactNode }) {
       const headline = section.querySelector<HTMLElement>(".section-heading h2, .contact-heading");
       const eyebrow = section.querySelector<HTMLElement>(".section-eyebrow");
       const items = Array.from(section.querySelectorAll<HTMLElement>(
-        ".service-card, .work-card, .about-art, .about-content, .contact-grid > div",
+        ".expertise-card, .work-card, .about-art, .about-content, .contact-grid > div",
       ));
       const play = () => {
         if (index === 0) return;

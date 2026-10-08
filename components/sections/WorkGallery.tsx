@@ -77,19 +77,19 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
   const images = selected === null ? [] : galleries[selected] ?? [];
 
   return (
-    <section className="section shell work-section" id="work">
+    <section className="section shell work-section work-editorial" id="work">
       <SectionHeading
         eyebrow="02 — Selected work"
-        title="Visual work that should take up space."
+        title="Selected work. Distinct perspectives."
       />
       <div className="work-lead js-reveal">
         <p>Explore Tsegaye&apos;s creative disciplines. Select a collection to reveal the work.</p>
         <span>Choose a collection ↘</span>
       </div>
 
-      <div className="work-grid js-stagger-group">
+      <div className="work-grid work-editorial-grid js-stagger-group">
         {projects.map((project, index) => (
-          <article className={`work-card work-card-${index + 1} js-stagger-item`} key={project.title}>
+          <article className={`work-card work-card-${index + 1} work-editorial-card js-stagger-item`} key={project.title}>
             <button
               type="button"
               className="work-card-trigger"
@@ -105,13 +105,13 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
                   </div>
                 ) : (
                   <div className={`portfolio-placeholder portfolio-placeholder-${index + 1}`}>
-                    <span className="portfolio-placeholder-label">Collection</span>
-                    <span className="portfolio-placeholder-cross" aria-hidden="true">+</span>
+                    <span className="portfolio-placeholder-label">Selected / {project.number}</span>
+                    
                     <div className="portfolio-placeholder-name">
-                      <span>Explore work</span>
+                      <span>Creative collection</span>
                       <strong>{project.title}</strong>
                     </div>
-                    <span className="portfolio-placeholder-number" aria-hidden="true">0{index + 1}</span>
+                    <span className="portfolio-placeholder-number" aria-hidden="true">{project.number}</span>
                   </div>
                 )}
               </div>

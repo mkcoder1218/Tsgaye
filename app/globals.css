@@ -2506,3 +2506,52 @@ body {
   .work-detail-header h2 { font-size: clamp(2.5rem, 12vw, 4.5rem); }
   .work-preview { min-height: 250px; }
 }
+
+
+/* Cinematic letter-slice reveal replaces the particle/sand animation. */
+.cinematic-text {
+  position: relative;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  isolation: isolate;
+}
+
+.cinematic-letters {
+  display: flex;
+  align-items: baseline;
+  width: max-content;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.cinematic-letter-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+  perspective: 800px;
+}
+
+.cinematic-letter {
+  display: inline-block;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+
+.cinematic-sweep {
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  width: 40%;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(154, 199, 255, 0.24), transparent);
+  filter: blur(14px);
+  transform: skewX(-18deg);
+  mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-letter { will-change: auto; }
+  .cinematic-sweep { display: none; }
+}

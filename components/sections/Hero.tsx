@@ -1,4 +1,4 @@
-import { SandText } from "@/components/motion/SandText";
+import { CinematicText } from "@/components/motion/CinematicText";
 import { portfolio } from "@/content/portfolio";
 
 export function Hero() {
@@ -12,21 +12,19 @@ export function Hero() {
           </div>
 
           <h1 className="hero-title" aria-label="Tsegaye Teshome">
-            <SandText
+            <CinematicText
               className="hero-title-line hero-title-primary"
               delay={120}
-              colorToken="--ink"
             >
               Tsegaye
-            </SandText>
+            </CinematicText>
 
-            <SandText
+            <CinematicText
               className="hero-title-line hero-title-secondary"
               delay={680}
-              colorToken="--accent"
             >
               Teshome
-            </SandText>
+            </CinematicText>
           </h1>
 
           <div className="hero-bottom js-hero-item">

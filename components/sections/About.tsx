@@ -8,16 +8,23 @@ export async function About() {
   });
 
   return (
-    <section className="section shell about-editorial" id="about">
-      <div className="about-editorial-heading">
-        <span className="section-eyebrow">03 — About</span>
-        <h2>Creative by instinct.<br /><em>Engineer by training.</em></h2>
-        <span className="about-editorial-mark" aria-hidden="true">T / T</span>
-      </div>
+    <section className="section shell about-gallery" id="about">
+      <div className="about-gallery-stage">
+        <span className="about-gallery-index section-eyebrow">03 / The person</span>
+        <span className="about-gallery-watermark" aria-hidden="true">ABOUT</span>
+        <div className="about-gallery-orbit" aria-hidden="true" />
 
-      <div className="about-editorial-layout">
-        <div className={`about-art about-editorial-portrait${aboutImage ? " has-image" : ""}`}>
-          <div className="about-editorial-halo" aria-hidden="true" />
+        <div className="about-gallery-copy about-content js-about-copy">
+          <p className="about-gallery-kicker">Art direction / Engineering / Imagination</p>
+          <h2 className="about-gallery-headline">
+            Not just<br />a <em>designer.</em>
+          </h2>
+          <p className="about-gallery-subhead">A different way of seeing.</p>
+          <p className="about-gallery-bio">{portfolio.about}</p>
+          <span className="about-gallery-signature">Tsegaye Teshome <span aria-hidden="true">↗</span></span>
+        </div>
+
+        <div className={`about-art about-gallery-portrait${aboutImage ? " has-image" : ""}`}>
           {aboutImage ? (
             <div className="about-image-stage">
               <img
@@ -32,26 +39,20 @@ export async function About() {
           ) : (
             <span className="about-letter">T</span>
           )}
-          <span className="about-editorial-caption">The person behind the perspective <span aria-hidden="true">↗</span></span>
+          <span className="about-gallery-photo-index">Portrait / 001</span>
         </div>
 
-        <div className="about-content js-about-copy about-editorial-content">
-          <span className="about-editorial-overline">Designer / Engineer / Creator</span>
-          <p className="about-copy">{portfolio.about}</p>
-          <div className="about-editorial-timeline">
-            <span className="about-editorial-timeline-label">The journey <span>2019 — Now</span></span>
-            <div className="timeline">
-              {portfolio.experience.map((job, index) => (
-                <article className="timeline-row js-about-timeline-row" key={`${job.period}-${job.company}`}>
-                  <time>{job.period}</time>
-                  <div>
-                    <span className="about-editorial-timeline-index">{String(index + 1).padStart(2, "0")}</span>
-                    <h3>{job.company}</h3>
-                    <p>{job.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+        <div className="about-gallery-experience">
+          <span className="about-gallery-experience-label">Selected experience <span>2019 — Now</span></span>
+          <div className="about-gallery-career">
+            {portfolio.experience.map((job, index) => (
+              <article className="about-gallery-career-item js-about-timeline-row" key={`${job.period}-${job.company}`}>
+                <span className="about-gallery-career-number">0{index + 1}</span>
+                <time>{job.period}</time>
+                <h3>{job.company}</h3>
+                <p>{job.description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </div>

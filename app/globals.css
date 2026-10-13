@@ -3077,3 +3077,13 @@ body {
  .work-poster{transition:none}
  .work-poster-heading-copy h2,.work-poster-heading-copy p{animation:none}
 }
+
+/* Warm lunar backdrop and integrated shadows for selected work. */
+.work-editorial .work-poster-stage{background:radial-gradient(ellipse at 78% 48%,rgba(169,124,69,.13),transparent 67%)}
+.work-editorial .work-poster-stage::before{content:"";position:absolute;z-index:0;right:9%;top:5%;width:clamp(250px,38vw,520px);aspect-ratio:1;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 31% 34%,rgba(243,217,173,.2) 0 3%,transparent 6%),radial-gradient(circle at 61% 60%,rgba(45,34,27,.4) 0 8%,transparent 13%),radial-gradient(circle at 38% 69%,rgba(69,51,36,.4) 0 11%,transparent 18%),radial-gradient(circle at 30% 25%,#b19a77,#6f5e49 44%,#302a25 72%,#110f0e 80%);box-shadow:inset -38px -30px 68px rgba(0,0,0,.72),inset 15px 12px 36px rgba(255,220,160,.15),0 0 90px rgba(212,166,99,.15),0 0 160px rgba(146,101,50,.08);opacity:.55;filter:saturate(.7)}
+.work-editorial .work-poster-deck{z-index:1}
+.work-editorial .work-poster{border:1px solid rgba(220,182,109,.12);box-shadow:0 28px 50px rgba(0,0,0,.69),0 55px 98px rgba(0,0,0,.43),0 0 38px rgba(165,109,52,.08);transition:box-shadow .32s ease,filter .32s ease}
+.work-editorial .work-poster-art::after{background:linear-gradient(90deg,rgba(13,10,8,.16),transparent 19%,transparent 83%,rgba(13,10,8,.15)),linear-gradient(to bottom,rgba(11,9,7,.06),transparent 46%,rgba(11,9,7,.14) 69%,rgba(11,9,7,.82))}
+.work-editorial .work-poster-art img{filter:saturate(.93) contrast(1.03)}
+.work-editorial .work-poster:hover,.work-editorial .work-poster:focus-visible,.work-editorial .work-poster.is-active{filter:none;box-shadow:0 36px 80px rgba(0,0,0,.84),0 0 38px rgba(220,182,109,.28),0 0 0 1px rgba(220,182,109,.28);outline:none}
+@media(max-width:560px){.work-editorial .work-poster-stage::before{width:68vw;right:2%;top:31%;opacity:.42}}

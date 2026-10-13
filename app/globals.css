@@ -2907,3 +2907,150 @@ body {
 .hero-editorial-contact{font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){.hero-editorial-image.hero-image-frame{animation:none}}
+
+
+/* Full-frame expertise portfolio slides — imagery leads, no service cards. */
+.expertise-slide{
+  position:relative;
+  width:100%;
+  max-width:none;
+  min-height:calc(100svh - 76px);
+  padding:0!important;
+  overflow:hidden;
+  isolation:isolate;
+  background:#b88849;
+  color:#16100a;
+}
+.expertise-slide-1{background:#d2a461}
+.expertise-slide-2{background:#c69a54}
+.expertise-slide-3{background:#ca9254}
+.expertise-slide-4{background:#ba875a}
+.expertise-slide-inner{
+  position:relative;
+  width:min(100% - clamp(40px,8vw,140px),1440px);
+  min-height:calc(100svh - 76px);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,43%) minmax(0,57%);
+  align-items:center;
+  padding:clamp(32px,5vh,70px) 0 clamp(46px,7vh,84px);
+}
+.expertise-slide-copy{position:relative;z-index:4;align-self:center;padding-bottom:6vh}
+.expertise-slide-kicker{
+  display:flex;gap:28px;align-items:center;
+  color:#3b2819!important;font-size:clamp(10px,.85vw,13px);
+  font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  margin:0 0 clamp(55px,11vh,130px)!important;
+}
+.expertise-slide-kicker span+span{color:#fff7e8}
+.expertise-slide-eyebrow{
+  margin:0 0 12px;
+  font-size:clamp(12px,1.15vw,17px);
+  text-transform:uppercase;letter-spacing:.22em;
+  font-weight:800;color:#64412a;
+}
+.expertise-slide-copy h2{
+  max-width:100%;margin:0;
+  color:#fffaf0;
+  font-size:clamp(78px,11vw,175px)!important;
+  line-height:.82!important;
+  letter-spacing:-.09em;
+  font-weight:950;
+  text-transform:uppercase;
+  overflow-wrap:normal;
+}
+.expertise-slide-period{color:#553520}
+.expertise-slide-description{
+  max-width:415px;margin:clamp(22px,4vh,42px) 0 28px;
+  color:#422c1d;line-height:1.55;
+  font-size:clamp(17px,1.6vw,24px);
+}
+.expertise-slide-link{
+  display:inline-flex;align-items:center;justify-content:space-between;
+  gap:38px;padding:15px 19px;min-width:230px;
+  color:#fff8eb;background:#241914;border-radius:4px;
+  font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;
+  transition:transform .2s,background .2s;
+}
+.expertise-slide-link:hover{background:#503520;transform:translateY(-3px)}
+.expertise-slide-link span{font-size:18px}
+.expertise-slide-stage{position:absolute;inset:0 -6vw 0 39%;z-index:2;pointer-events:none;overflow:visible}
+.expertise-slide-deco{
+  position:absolute;right:-4%;top:5%;font-size:clamp(250px,34vw,640px);
+  font-weight:950;letter-spacing:-.12em;line-height:1;
+  color:rgba(49,29,19,.08);user-select:none;
+}
+.expertise-slide-gallery{
+  position:absolute;inset:0;
+  transform:translate(9%,15%) rotate(-16deg);
+  transform-origin:50% 60%;
+}
+.expertise-slide-piece{
+  position:absolute;margin:0;overflow:hidden;
+  width:clamp(175px,20vw,335px);
+  aspect-ratio:4/5;
+  border-radius:12px;
+  background:#251b17;
+  box-shadow:0 22px 48px rgba(54,31,18,.30),0 3px 10px rgba(54,31,18,.18);
+  border:5px solid rgba(255,245,225,.18);
+  transition:transform .35s,box-shadow .35s;
+}
+.expertise-slide-piece img{display:block;width:100%;height:100%;object-fit:cover}
+.expertise-slide-piece-1{top:16%;left:1%;transform:rotate(-4deg)}
+.expertise-slide-piece-2{top:1%;left:36%;transform:rotate(5deg)}
+.expertise-slide-piece-3{top:9%;left:72%;transform:rotate(-3deg)}
+.expertise-slide-piece-4{top:60%;left:-6%;transform:rotate(4deg)}
+.expertise-slide-piece-5{top:51%;left:32%;transform:rotate(-5deg)}
+.expertise-slide-piece-6{top:58%;left:70%;transform:rotate(4deg)}
+.expertise-slide-placeholder{
+  width:100%;height:100%;padding:20px;display:flex;
+  flex-direction:column;justify-content:space-between;align-items:flex-start;
+  background:radial-gradient(circle at 80% 15%,#806149,#261b17 70%);
+  color:#fff1d1;text-transform:uppercase;
+}
+.expertise-slide-placeholder span{font-size:clamp(17px,2.2vw,35px);font-weight:900;line-height:.95;letter-spacing:-.05em}
+.expertise-slide-placeholder strong{align-self:flex-end;font-size:clamp(60px,8vw,125px);line-height:1;opacity:.25}
+.expertise-slide-foot{
+  position:absolute;z-index:5;bottom:clamp(15px,3vh,40px);left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  color:#4b3020;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+}
+.expertise-slide-foot>span:last-child span{font-size:17px;margin-left:12px}
+@media(min-width:821px) and (max-height:760px){
+  .expertise-slide-kicker{margin-bottom:6vh!important}
+  .expertise-slide-copy h2{font-size:clamp(65px,8vw,125px)!important}
+  .expertise-slide-description{font-size:16px;margin:19px 0}
+  .expertise-slide-gallery{transform:translate(11%,15%) rotate(-16deg) scale(.86)}
+}
+@media(max-width:820px){
+  .expertise-slide,.expertise-slide-inner{min-height:calc(100svh - 76px)}
+  .expertise-slide-inner{width:calc(100% - 42px);grid-template-columns:1fr;padding:28px 0 52px;align-items:start}
+  .expertise-slide-copy{padding:0}
+  .expertise-slide-kicker{margin-bottom:clamp(45px,7vh,75px)!important}
+  .expertise-slide-copy h2{font-size:clamp(65px,13vw,120px)!important}
+  .expertise-slide-description{font-size:clamp(14px,2vw,19px);max-width:410px;margin:16px 0}
+  .expertise-slide-link{min-width:200px}
+  .expertise-slide-stage{inset:30% -10vw 0 22%}
+  .expertise-slide-gallery{transform:translate(4%,22%) rotate(-15deg)}
+  .expertise-slide-piece{width:clamp(140px,30vw,235px)}
+}
+@media(max-width:560px){
+  .expertise-slide,.expertise-slide-inner{min-height:max(660px,calc(100svh - 72px))}
+  .expertise-slide-inner{width:calc(100% - 36px);padding:22px 0 42px}
+  .expertise-slide-kicker{margin-bottom:32px!important}
+  .expertise-slide-eyebrow{font-size:10px}
+  .expertise-slide-copy h2{font-size:clamp(65px,17vw,98px)!important}
+  .expertise-slide-description{max-width:260px;font-size:14px;line-height:1.4;margin:14px 0}
+  .expertise-slide-link{font-size:9px;padding:12px;min-width:190px}
+  .expertise-slide-stage{inset:38% -24vw 0 0}
+  .expertise-slide-gallery{transform:translate(5%,25%) rotate(-15deg)}
+  .expertise-slide-piece{width:clamp(135px,45vw,195px);border-width:3px;border-radius:7px}
+  .expertise-slide-piece-1{left:-14%}
+  .expertise-slide-piece-2{left:36%}
+  .expertise-slide-piece-3{left:87%}
+  .expertise-slide-piece-4{left:-20%}
+  .expertise-slide-piece-5{left:32%}
+  .expertise-slide-piece-6{left:84%}
+  .expertise-slide-foot{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.expertise-slide-piece{transition:none}}

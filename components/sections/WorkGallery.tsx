@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { portfolio } from "@/content/portfolio";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 
 type WorkGalleryProps = {
   projects: typeof portfolio.projects;
@@ -12,6 +11,7 @@ type WorkGalleryProps = {
 
 export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
   const [selected, setSelected] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLButtonElement | null>(null);
@@ -78,13 +78,19 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
 
   return (
     <section className="section shell work-section work-editorial" id="work">
-      <SectionHeading
-        eyebrow="02 — Selected work"
-        title="Selected work. Distinct perspectives."
-      />
-      <div className="work-lead js-reveal">
-        <p>Explore Tsegaye&apos;s creative disciplines. Select a collection to reveal the work.</p>
-        <span>Choose a collection ↘</span>
+      <div className="work-poster-heading">
+        <span className="section-eyebrow">02 — Selected work</span>
+        <div className="work-poster-heading-copy" aria-live="polite">
+          <h2 key={hovered ?? "overview"}>
+            {hovered === null ? "Selected work." : projects[hovered].title}
+          </h2>
+          <p key={`description-${hovered ?? "overview"}`}>
+            {hovered === null
+              ? "Distinct perspectives. Explore a collection."
+              : projects[hovered].meta}
+          </p>
+        </div>
+        <span className="work-poster-heading-hint">Hover or select a poster ↗</span>
       </div>
 
       <div className="work-poster-stage js-stagger-group" aria-label="Explore creative collections">
@@ -93,10 +99,14 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
             <button
               key={project.title}
               type="button"
-              className={`work-poster work-poster-${index + 1} js-stagger-item`}
+              className={`work-poster work-poster-${index + 1} js-stagger-item${hovered === index ? " is-active" : ""}`}
               aria-label={`Explore ${project.title} collection`}
               aria-haspopup="dialog"
               onClick={(event) => open(index, event.currentTarget)}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+              onFocus={() => setHovered(index)}
+              onBlur={() => setHovered(null)}
             >
               <div className="work-poster-art">
                 {galleries[index]?.[0] ? (

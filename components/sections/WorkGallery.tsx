@@ -87,41 +87,35 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
         <span>Choose a collection ↘</span>
       </div>
 
-      <div className="work-grid work-editorial-grid js-stagger-group">
-        {projects.map((project, index) => (
-          <article className={`work-card work-card-${index + 1} work-editorial-card js-stagger-item`} key={project.title}>
+      <div className="work-poster-stage js-stagger-group" aria-label="Explore creative collections">
+        <div className="work-poster-deck">
+          {projects.map((project, index) => (
             <button
+              key={project.title}
               type="button"
-              className="work-card-trigger"
+              className={`work-poster work-poster-${index + 1} js-stagger-item`}
               aria-label={`Explore ${project.title} collection`}
               aria-haspopup="dialog"
               onClick={(event) => open(index, event.currentTarget)}
             >
-              <div className="work-media">
+              <div className="work-poster-art">
                 {galleries[index]?.[0] ? (
-                  <div className="work-preview">
-                    <img src={galleries[index][0]} alt={`${project.title} project preview`} loading="lazy" />
-                    <span className="work-preview-label">View collection ↗</span>
-                  </div>
+                  <img src={galleries[index][0]} alt="" loading="lazy" decoding="async" />
                 ) : (
-                  <div className={`portfolio-placeholder portfolio-placeholder-${index + 1}`}>
-                    <span className="portfolio-placeholder-label">Selected / {project.number}</span>
-                    
-                    <div className="portfolio-placeholder-name">
-                      <span>Creative collection</span>
-                      <strong>{project.title}</strong>
-                    </div>
-                    <span className="portfolio-placeholder-number" aria-hidden="true">{project.number}</span>
+                  <div className="work-poster-placeholder" aria-hidden="true">
+                    <span>Creative collection</span>
+                    <strong>{project.title}</strong>
                   </div>
                 )}
               </div>
-              <div className="work-caption">
-                <div><h3>{project.title}</h3><p>{project.meta}</p></div>
-                <span>↗</span>
-              </div>
+              <span className="work-poster-label">
+                <span><small>{project.number} / Collection</small><strong>{project.title}</strong></span>
+                <span aria-hidden="true">↗</span>
+              </span>
             </button>
-          </article>
-        ))}
+          ))}
+        </div>
+        <span className="work-poster-hint">Select a poster to explore its collection ↗</span>
       </div>
 
       {selectedProject && (

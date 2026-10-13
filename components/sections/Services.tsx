@@ -1,77 +1,76 @@
 import { portfolio } from "@/content/portfolio";
 import { getPortfolioImages } from "@/lib/imagekit";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const categories = [
   "brand-identity",
-  "brand-identity",
   "marketing-design",
   "print-editorial",
+  "digital-motion",
 ] as const;
-
-const subtitles = ["Visual identity", "Brand worlds", "Digital campaigns", "Print & editorial"] as const;
 
 export async function Services() {
   const galleries = await Promise.all(
-    categories.map((category) => getPortfolioImages(category, { width: 1100, quality: 82 })),
+    categories.map((category) =>
+      getPortfolioImages(category, { width: 900, quality: 82 }),
+    ),
   );
+  const artwork = galleries.flatMap((images) => images.slice(0, 3)).slice(0, 8);
 
   return (
-    <>
-      {portfolio.services.map((service, index) => {
-        const images = galleries[index].slice(0, 6);
-        return (
-          <section
-            className={`section expertise-slide expertise-slide-${index + 1}`}
-            id={index === 0 ? "expertise" : `expertise-${service.title.toLowerCase()}`}
-            key={service.number}
-            aria-label={`${service.title} expertise`}
-          >
-            <div className="expertise-slide-inner">
-              <div className="expertise-slide-copy">
-                <p className="expertise-slide-kicker section-eyebrow">
-                  <span>01 — Expertise</span>
-                  <span>{service.number} / 04</span>
-                </p>
-                <p className="expertise-slide-eyebrow">{subtitles[index]}</p>
-                <h2>{service.title}<span className="expertise-slide-period">.</span></h2>
-                <p className="expertise-slide-description">{service.description}</p>
-                <a className="expertise-slide-link" href="#work">
-                  Explore selected work <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-              <div className="expertise-slide-stage" aria-label={`${service.title} portfolio examples`}>
-                <span className="expertise-slide-deco" aria-hidden="true">{service.number}</span>
-                <div className="expertise-slide-gallery">
-                  {Array.from({ length: 6 }, (_, imageIndex) => (
-                    <figure
-                      className={`expertise-slide-piece expertise-card expertise-slide-piece-${imageIndex + 1}`}
-                      key={imageIndex}
-                    >
-                      {images[imageIndex] ? (
-                        <img
-                          src={images[imageIndex]}
-                          alt={`${service.title} portfolio artwork ${imageIndex + 1}`}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      ) : (
-                        <div className="expertise-slide-placeholder" aria-hidden="true">
-                          <span>{service.title}</span>
-                          <strong>{String(imageIndex + 1).padStart(2, "0")}</strong>
-                        </div>
-                      )}
-                    </figure>
-                  ))}
+    <section className="section shell expertise-section expertise-showcase" id="expertise">
+      <div className="expertise-heading">
+        <SectionHeading eyebrow="01 — Expertise" title="Ideas with impact." />
+        <p className="expertise-deck">
+          From the first sketch to the final impression. Four creative disciplines,
+          one unmistakable point of view.
+        </p>
+      </div>
+
+      <div className="expertise-showcase-layout">
+        <div className="expertise-showcase-copy">
+          <span className="expertise-showcase-index">Creative disciplines / 01—04</span>
+          <div className="expertise-showcase-services">
+            {portfolio.services.map((service) => (
+              <div className="expertise-showcase-service" key={service.number}>
+                <span>{service.number}</span>
+                <div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
                 </div>
               </div>
-              <div className="expertise-slide-foot">
-                <span>Tsegaye Teshome / Creative portfolio</span>
-                <span>{String(index + 2).padStart(2, "0")} — 06 <span aria-hidden="true">↓</span></span>
-              </div>
-            </div>
-          </section>
-        );
-      })}
-    </>
+            ))}
+          </div>
+          <a className="expertise-showcase-link" href="#work">
+            Explore the work <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div className="expertise-showcase-art" aria-label="Selected portfolio artworks">
+          <div className="expertise-showcase-stack">
+            {Array.from({ length: 8 }, (_, index) => (
+              <figure
+                className={`expertise-showcase-print expertise-card expertise-showcase-print-${index + 1}`}
+                key={index}
+              >
+                {artwork[index] ? (
+                  <img
+                    src={artwork[index]}
+                    alt={`Tsegaye Teshome portfolio artwork ${index + 1}`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="expertise-showcase-placeholder" aria-hidden="true">
+                    <span>Selected work</span>
+                    <strong>{String(index + 1).padStart(2, "0")}</strong>
+                  </div>
+                )}
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

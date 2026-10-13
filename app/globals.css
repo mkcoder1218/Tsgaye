@@ -3034,8 +3034,8 @@ body {
 .work-poster-label strong{font-size:clamp(16px,2vw,25px);letter-spacing:-.03em}
 .work-poster-label>span:last-child{color:#ebc17e;font-size:22px}
 .work-poster:hover,.work-poster:focus-visible,.work-poster.is-active{
-  z-index:10;transform:translate(-2%,-5%) rotate(-4deg) scale(1.03);
-  filter:brightness(1.08);box-shadow:0 38px 85px rgba(0,0,0,.8);
+  filter:brightness(1.06);
+  box-shadow:0 40px 90px rgba(0,0,0,.88),0 0 38px rgba(220,182,109,.25);
   outline:2px solid var(--accent);outline-offset:2px;
 }
 .work-poster-hint{display:none}

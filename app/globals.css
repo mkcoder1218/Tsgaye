@@ -3110,3 +3110,30 @@ body {
   .work-poster-label strong{font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){.work-poster-heading-copy h2,.work-poster-heading-copy p{animation:none}}
+
+/* Right-entry campaign stack: layered in depth from the right edge, not a centered fan. */
+.work-editorial .work-poster-stage{overflow:hidden;isolation:isolate}
+.work-poster-deck{left:auto;right:0;width:min(78%,900px);max-width:900px;transform:none}
+.work-poster{width:clamp(220px,32vw,405px);height:85%;transform-origin:75% 75%}
+.work-poster-1{left:5%;top:21%;z-index:1;transform:translateX(0) rotate(-28deg) scale(.89)}
+.work-poster-2{left:27%;top:14%;z-index:2;transform:translateX(0) rotate(-19deg) scale(.94)}
+.work-poster-3{left:48%;top:6%;z-index:3;transform:translateX(0) rotate(-10deg)}
+.work-poster-4{left:68%;top:0;z-index:4;transform:translateX(0) rotate(-2deg) scale(1.03)}
+.work-poster:hover,.work-poster:focus-visible,.work-poster.is-active{z-index:12;transform:translate(-6%,-4%) rotate(-4deg) scale(1.05)}
+@media(max-width:820px){
+ .work-poster-deck{left:auto;right:0;width:95%;max-width:none;transform:none}
+ .work-poster{width:49%;height:82%}
+ .work-poster-1{left:-10%;top:23%}
+ .work-poster-2{left:16%;top:15%}
+ .work-poster-3{left:43%;top:7%}
+ .work-poster-4{left:69%;top:0}
+}
+@media(max-width:560px){
+ .work-editorial .work-poster-stage{overflow:hidden}
+ .work-poster-deck{width:120%;right:-17%}
+ .work-poster{width:58%;height:83%}
+ .work-poster-1{left:-25%;top:25%}
+ .work-poster-2{left:3%;top:17%}
+ .work-poster-3{left:34%;top:8%}
+ .work-poster-4{left:66%;top:0}
+}

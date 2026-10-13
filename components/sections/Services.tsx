@@ -19,18 +19,28 @@ export async function Services() {
         </p>
       </div>
       <div className="expertise-mosaic-viewport" aria-label="Tsegaye Teshome selected creative artwork">
-        <div className="expertise-mosaic-grid">
-          {artwork.map((src, index) => (
-            <figure className="expertise-mosaic-tile" key={src + index}>
-              <img
-                src={src}
-                alt={`Selected creative portfolio design ${index + 1}`}
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-          ))}
-        </div>
+        {artwork.length > 0 && (
+          <div className="expertise-mosaic-track">
+            {[0, 1].map((copy) => (
+              <div
+                className="expertise-mosaic-grid"
+                key={copy}
+                aria-hidden={copy === 1}
+              >
+                {artwork.map((src, index) => (
+                  <figure className="expertise-mosaic-tile" key={`${copy}-${src}-${index}`}>
+                    <img
+                      src={src}
+                      alt={copy === 0 ? `Selected creative portfolio design ${index + 1}` : ""}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
         {artwork.length === 0 && (
           <p className="expertise-mosaic-empty">
             Portfolio artwork will appear here when uploaded to the gallery.

@@ -9,57 +9,35 @@ export async function Hero() {
   });
 
   return (
-    <section className="hero shell" id="top">
-      <div className="hero-grid">
-        <div className="hero-copy">
-          <div className="hero-kicker js-hero-item">
-            <span>Independent creative</span>
-            <span>Addis Ababa · Ethiopia</span>
-          </div>
+    <section className="hero hero-editorial shell" id="top">
+      <div className="hero-editorial-stage">
+        <div className="hero-editorial-meta js-hero-item">
+          <span>Independent creative <i aria-hidden="true" /></span>
+          <span>Addis Ababa / Ethiopia</span>
+          <span className="hero-edition">Portfolio — 2026</span>
+        </div>
 
-          <h1 className="hero-title" aria-label="Tsegaye Teshome">
-            <CinematicText
-              className="hero-title-line hero-title-primary"
-              delay={120}
-            >
+        <div className="hero-editorial-glow" aria-hidden="true" />
+
+        <div className="hero-editorial-type">
+          <p className="hero-editorial-overline js-hero-item">Graphic designer <span>&amp;</span> creative engineer</p>
+          <h1 className="hero-title hero-editorial-title" aria-label="Tsegaye Teshome">
+            <CinematicText className="hero-title-line hero-title-primary hero-editorial-first" delay={120}>
               Tsegaye
             </CinematicText>
-
-            <CinematicText
-              className="hero-title-line hero-title-secondary"
-              delay={680}
-            >
+            <CinematicText className="hero-title-line hero-title-secondary hero-editorial-last" delay={450}>
               Teshome
             </CinematicText>
           </h1>
-
-          <div className="hero-bottom js-hero-item">
-            <p className="hero-intro">{portfolio.heroIntro}</p>
-
-            <div className="hero-actions">
-              <a className="hero-button hero-button-primary" href="#work">
-                Selected work <span aria-hidden="true">↘</span>
-              </a>
-              <a
-                className="hero-button hero-button-ghost"
-                href={`mailto:${portfolio.email}`}
-              >
-                Start a project
-              </a>
-            </div>
-          </div>
         </div>
 
-        <div className="hero-art js-hero-item">
-          <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
-          <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
-
-          <div className="hero-image-frame">
+        <div className="hero-art hero-editorial-art js-hero-item">
+          <div className="hero-image-frame hero-editorial-image">
             {heroImage ? (
               <img
                 className="hero-uploaded-image"
                 src={heroImage}
-                alt={`${portfolio.name} featured artwork`}
+                alt={`${portfolio.name} portrait`}
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -68,29 +46,28 @@ export async function Hero() {
               <div className="image-placeholder">
                 <span className="image-placeholder-label">Portrait / Artwork</span>
                 <span className="image-placeholder-mark">+</span>
-                <span className="image-placeholder-copy">
-                  Replace with
-                  <br />
-                  Tsegaye&apos;s image
-                </span>
+                <span className="image-placeholder-copy">Upload a hero portrait</span>
               </div>
             )}
           </div>
-
-          <div className="hero-sticker hero-sticker-top">
-            <span>07+</span>
-            <small>Years creating</small>
-          </div>
-
-          <div className="hero-sticker hero-sticker-bottom">
-            <strong>Branding</strong>
-            <span>Print · Digital · Motion</span>
-          </div>
-
-          <span className="hero-art-index" aria-hidden="true">
-            01
-          </span>
+          <span className="hero-editorial-image-caption">A creative mind behind the work <span>↗</span></span>
         </div>
+
+        <div className="hero-editorial-footer js-hero-item">
+          <div className="hero-editorial-summary">
+            <span className="hero-editorial-number">01 / 05</span>
+            <p>{portfolio.heroIntro}</p>
+          </div>
+          <div className="hero-editorial-actions">
+            <a className="hero-editorial-work" href="#work">
+              Explore selected work <span aria-hidden="true">↘</span>
+            </a>
+            <a className="hero-editorial-contact" href={`mailto:${portfolio.email}`}>
+              Have a project? <span>Let&apos;s talk ↗</span>
+            </a>
+          </div>
+        </div>
+        <span className="hero-editorial-edge" aria-hidden="true">Scroll to explore — ↓</span>
       </div>
     </section>
   );

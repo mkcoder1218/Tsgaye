@@ -2841,11 +2841,12 @@ body {
 .hero-editorial-overline span{color:var(--accent)}
 .hero-editorial-title{margin:0;font-size:clamp(70px,8.4vw,150px);line-height:.91;letter-spacing:-.08em;text-transform:uppercase}
 .hero-editorial-first{position:relative;z-index:1;color:#f6f1e9;font-weight:950}
-.hero-editorial-last{position:relative;z-index:2;margin:.1em 0 0 .1em;font-family:var(--font-instrument-serif),Georgia,serif;font-size:.83em;font-style:italic;font-weight:400;letter-spacing:-.065em;line-height:1;color:var(--accent);text-transform:none;transform:none}
+.hero-editorial-last{position:relative;z-index:2;margin:.07em 0 0;font-family:inherit;font-size:1em;font-style:normal;font-weight:950;letter-spacing:-.08em;line-height:.91;color:var(--accent);text-transform:uppercase;transform:none}
 .hero-editorial-art{position:absolute;z-index:2;right:1%;top:12%;width:37%;height:67%;min-height:0;pointer-events:none}
-.hero-editorial-art::before{content:"";position:absolute;inset:-12%;z-index:-1;background:radial-gradient(ellipse,rgba(178,113,40,.17),transparent 67%);filter:blur(34px)}
-.hero-editorial-image.hero-image-frame{position:absolute;inset:0 0 28px;padding:0;border:0;border-radius:0;transform:none;box-shadow:0 25px 70px rgba(0,0,0,.28);background:#1c1b18;clip-path:polygon(0 0,100% 0,100% 92%,92% 100%,0 100%);animation:hero-portrait-reveal .85s cubic-bezier(.16,1,.3,1) both}
-.hero-editorial-image .hero-uploaded-image{width:100%;height:100%;object-fit:cover;object-position:center 24%;filter:saturate(.9)}
+.hero-editorial-art::before{content:"";position:absolute;inset:-20%;z-index:-1;background:radial-gradient(ellipse at 50% 55%,rgba(187,127,53,.27),rgba(105,66,31,.11) 40%,transparent 70%);filter:blur(42px)}
+.hero-editorial-image.hero-image-frame{position:absolute;inset:0;padding:0;border:0;border-radius:0;transform:none;box-shadow:0 30px 95px rgba(0,0,0,.48),0 0 65px rgba(165,108,48,.12);background:#1c1b18;clip-path:none;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 72%,rgba(0,0,0,.85) 85%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 72%,rgba(0,0,0,.85) 85%,transparent 100%);animation:hero-portrait-reveal .85s cubic-bezier(.16,1,.3,1) both}
+.hero-editorial-image .hero-uploaded-image{width:100%;height:100%;object-fit:cover;object-position:center 24%;filter:saturate(.85) contrast(1.04)}
+.hero-editorial-image::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(12,9,7,.36),transparent 16%,transparent 78%,rgba(12,9,7,.37)),linear-gradient(180deg,transparent 52%,rgba(12,9,7,.18) 85%,rgba(12,9,7,.7));box-shadow:inset 0 0 65px rgba(12,9,7,.26)}
 .hero-editorial-image .image-placeholder{height:100%;min-height:0}
 .hero-editorial-image-caption{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;gap:12px;color:#bfb19c;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .hero-editorial-image-caption span{color:var(--accent)}
@@ -2861,7 +2862,7 @@ body {
 .hero-editorial-contact span{display:block;margin-top:5px;color:#f5ecd9;font-weight:700}
 .hero-editorial-contact:hover span{color:var(--accent)}
 .hero-editorial-edge{display:none}
-@keyframes hero-portrait-reveal{from{opacity:0;transform:translateY(28px);clip-path:inset(100% 0 0)}to{opacity:1;transform:translateY(0);clip-path:polygon(0 0,100% 0,100% 92%,92% 100%,0 100%)}}
+@keyframes hero-portrait-reveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 @media(min-width:1101px) and (max-height:760px){
 .hero-editorial-stage{min-height:calc(100svh - 76px);padding-top:18px;padding-bottom:20px}
 .hero-editorial-type{padding:2vh 0}
@@ -2898,7 +2899,7 @@ body {
 .hero-editorial-type{z-index:4;width:100%;max-width:100%;margin:0;padding-top:calc(42vh - 24px);padding-bottom:20px}
 .hero-editorial-overline{margin-bottom:12px;max-width:42%;font-size:9px}
 .hero-editorial-title{font-size:clamp(62px,15vw,91px);line-height:.87;text-shadow:0 4px 18px rgba(0,0,0,.65)}
-.hero-editorial-last{font-size:.81em}
+.hero-editorial-last{font-size:1em}
 .hero-editorial-image-caption{font-size:7px}
 .hero-editorial-summary{gap:12px}
 .hero-editorial-summary p{font-size:12px}

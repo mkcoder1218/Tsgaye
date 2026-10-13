@@ -22,10 +22,10 @@ export async function Hero() {
         <div className="hero-editorial-type">
           <p className="hero-editorial-overline js-hero-item">Graphic designer <span>&amp;</span> creative engineer</p>
           <h1 className="hero-title hero-editorial-title" aria-label="Tsegaye Teshome">
-            <CinematicText className="hero-title-line hero-title-primary hero-editorial-first" delay={120}>
+            <CinematicText className="hero-title-line hero-editorial-first" delay={120}>
               Tsegaye
             </CinematicText>
-            <CinematicText className="hero-title-line hero-title-secondary hero-editorial-last" delay={450}>
+            <CinematicText className="hero-title-line hero-editorial-last" delay={260}>
               Teshome
             </CinematicText>
           </h1>
@@ -50,7 +50,6 @@ export async function Hero() {
               </div>
             )}
           </div>
-          <span className="hero-editorial-image-caption">A creative mind behind the work <span>↗</span></span>
         </div>
 
         <div className="hero-editorial-footer js-hero-item">

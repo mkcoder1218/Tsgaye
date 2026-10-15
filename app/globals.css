@@ -2491,7 +2491,7 @@ body {
 .work-detail-close span { font-size: 1.5rem; line-height: .7; }
 .work-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .work-detail-item { margin: 0; min-width: 0; }
-.work-detail-item img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--surface); }
+.work-detail-item img { display: block; width: 100%; height: auto; max-width: 100%; object-fit: contain; background: var(--surface); }
 .work-detail-item figcaption { padding: 12px 0; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .work-detail-empty { grid-column: 1 / -1; min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px dashed var(--line); gap: 18px; padding: 35px; }
 .work-detail-empty span { color: var(--accent); font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; }

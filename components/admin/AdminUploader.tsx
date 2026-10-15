@@ -101,6 +101,7 @@ export function AdminUploader() {
   const [isDragging, setIsDragging] = useState(false);
   const [globalError, setGlobalError] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [view, setView] = useState<"library" | "upload" | "content">("library");
 
   const completedCount = useMemo(
     () => items.filter((item) => item.status === "done").length,
@@ -207,42 +208,41 @@ export function AdminUploader() {
     setUploading(false);
   };
 
+  const navigation = [
+    { id: "library", label: "Media library", number: "01", description: "Browse & manage" },
+    { id: "upload", label: "Upload artwork", number: "02", description: "Add new images" },
+    { id: "content", label: "Content editor", number: "03", description: "Text & information" },
+  ] as const;
+
   return (
     <main className="admin-shell">
-      <section className="admin-panel">
-        <div className="admin-heading">
-          <div>
-            <p className="admin-eyebrow">Private portfolio admin</p>
-            <h1>Manage Tsegaye&apos;s portfolio.</h1>
-          </div>
-          <div className="admin-heading-actions">
-            <a href="/" className="admin-back">
-              Back to portfolio ↗
-            </a>
-            <form action="/api/admin/logout" method="post">
-              <button type="submit" className="admin-logout">
-                Log out
+      <div className="admin-workspace">
+        <aside className="admin-sidebar">
+          <div className="admin-brand"><span className="admin-brand-mark">T<span>.</span></span><div><strong>TSEGAYE TESHOME</strong><small>PORTFOLIO STUDIO</small></div></div>
+          <div className="admin-side-label">WORKSPACE</div>
+          <nav className="admin-section-nav" aria-label="Admin sections">
+            {navigation.map((tab) => (
+              <button key={tab.id} type="button" className={view === tab.id ? "is-active" : ""} onClick={() => setView(tab.id)} aria-current={view === tab.id ? "page" : undefined}>
+                <span className="admin-nav-number">{tab.number}</span><span className="admin-nav-copy"><strong>{tab.label}</strong><small>{tab.description}</small></span><span className="admin-nav-arrow">↗</span>
               </button>
-            </form>
+            ))}
+          </nav>
+          <div className="admin-sidebar-footer">
+            <span className="admin-live-indicator"><i /> PRIVATE DASHBOARD</span>
+            <a href="/" target="_blank" rel="noreferrer">View live portfolio <span>↗</span></a>
+            <form action="/api/admin/logout" method="post"><button type="submit">Sign out <span>→</span></button></form>
           </div>
-        </div>
-
-        <nav className="admin-section-nav" aria-label="Admin sections">
-          <a href="#content-editor">Content</a>
-          <a href="#image-uploader">Upload</a>
-          <a href="#image-library">Image library</a>
-        </nav>
-
-        <AdminContentEditor />
-
-        <div className="admin-section-heading" id="image-uploader">
-          <div>
-            <span>02</span>
-            <h2>Portfolio images</h2>
+        </aside>
+        <section className="admin-panel">
+          <div className="admin-heading">
+            <div><p className="admin-eyebrow">PORTFOLIO / ADMINISTRATION</p><h1>{view === "library" ? "Media library" : view === "upload" ? "Upload artwork" : "Content studio"}<span className="admin-heading-dot">.</span></h1>
+              <p className="admin-heading-description">{view === "library" ? "Your complete collection, beautifully organized and easy to manage." : view === "upload" ? "Give every piece a place in the portfolio." : "Shape the story behind the work."}</p></div>
+            <button className="admin-top-action" type="button" onClick={() => setView(view === "upload" ? "library" : "upload")}>{view === "upload" ? "View library" : "+ Add images"} <span>↗</span></button>
           </div>
-          <p>Upload images and choose where each one belongs.</p>
-        </div>
 
+          <div hidden={view !== "content"}><AdminContentEditor /></div>
+          <div hidden={view !== "upload"} className="admin-upload-view">
+            <div className="admin-section-heading" id="image-uploader"><div><span>02 / UPLOAD</span><h2>Add to your collection</h2></div><p>Select multiple images, then assign their categories before publishing.</p></div>
         <div
           className={`admin-dropzone ${isDragging ? "is-dragging" : ""}`}
           onDragEnter={(event) => {
@@ -375,18 +375,11 @@ export function AdminUploader() {
           </div>
         )}
 
-        <AdminImageLibrary refreshKey={completedCount} />
-
-        <div className="admin-folder-guide">
-          {categories.map((category, index) => (
-            <div key={category.slug}>
-              <span>0{index + 1}</span>
-              <strong>{category.label}</strong>
-              <code>/portfolio/{category.slug}</code>
-            </div>
-          ))}
         </div>
-      </section>
+        <div hidden={view !== "library"}><AdminImageLibrary refreshKey={completedCount} /></div>
+
+        </section>
+      </div>
     </main>
   );
 }

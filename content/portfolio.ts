@@ -1,6 +1,6 @@
 export const portfolio = {
   "name": "Tsegaye Teshome",
-  "role": "Graphic Designer & Creative Professional",
+  "role": "Creative Graphic Designer & Professional Art director",
   "location": "Addis Ababa — Ayertena, Ethiopia",
   "email": "tsegayeteshome0@gmail.com",
   "phoneDisplay": "+251 920 804 457",

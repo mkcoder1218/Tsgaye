@@ -10,6 +10,7 @@ const categories = [
   { slug: "marketing-design", label: "Marketing Design" },
   { slug: "print-editorial", label: "Print & Editorial" },
   { slug: "digital-motion", label: "Digital & Motion" },
+  { label: "Others", slug: "others" },
 ];
 type Image = { fileId: string; name: string; url: string; filePath: string; size?: number; createdAt?: string };
 type Auth = { token: string; expire: number; signature: string; publicKey: string; error?: string };

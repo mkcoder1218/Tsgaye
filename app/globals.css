@@ -3339,3 +3339,8 @@ body {
     columns: 1;
   }
 }
+
+/* Fifth collection card joins the existing cinematic fan. */
+.work-editorial .work-poster-5{left:65%;top:0;z-index:5;transform:rotate(2deg) scale(1)}
+@media(max-width:820px){.work-editorial .work-poster-5{left:64%;top:0}}
+@media(max-width:560px){.work-editorial .work-poster-5{left:59%;top:0}}

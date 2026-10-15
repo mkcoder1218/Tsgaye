@@ -3,7 +3,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const categories = ["hero-image", "about-me", "brand-identity", "marketing-design", "print-editorial", "digital-motion"] as const;
+const categories = ["hero-image", "about-me", "brand-identity", "marketing-design", "print-editorial", "digital-motion", "others"] as const;
 const root = "/portfolio/";
 
 type StoredImage = {

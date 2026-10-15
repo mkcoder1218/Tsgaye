@@ -7,6 +7,7 @@ const categories = [
   "marketing-design",
   "print-editorial",
   "digital-motion",
+  "others",
 ] as const;
 
 export async function Work() {

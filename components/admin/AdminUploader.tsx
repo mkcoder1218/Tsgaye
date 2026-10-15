@@ -11,6 +11,7 @@ const categories = [
   { label: "Marketing Design", slug: "marketing-design" },
   { label: "Print & Editorial", slug: "print-editorial" },
   { label: "Digital & Motion", slug: "digital-motion" },
+  { label: "Others", slug: "others" },
 ] as const;
 
 type CategorySlug = (typeof categories)[number]["slug"];

@@ -60,6 +60,12 @@ export const portfolio = {
       "title": "logos",
       "meta": "Digital materials · Motion · 3D",
       "visual": "motion"
+    },
+    {
+      "number": "05",
+      "title": "Others",
+      "meta": "Experiments · Mixed media · More work",
+      "visual": "mixed"
     }
   ],
   "about": "I’m Tsegaye Teshome, a graphic designer with more than seven years of professional experience and an Engineering degree from Arba Minch University. I work across branding, marketing, digital promotion, motion, video and audio production.",

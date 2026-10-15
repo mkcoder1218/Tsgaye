@@ -3305,3 +3305,37 @@ body {
  .about-gallery-career-item time{margin-bottom:3px}
  .about-gallery-career-item p{font-size:10px}
 }
+
+
+/* Natural-height masonry layout for portfolio collection artwork. */
+.work-detail-grid {
+  display: block;
+  columns: 2;
+  column-gap: clamp(12px, 1.8vw, 24px);
+}
+.work-detail-grid .work-detail-item {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 clamp(16px, 2vw, 28px);
+  vertical-align: top;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.work-detail-grid .work-detail-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+.work-detail-grid .work-detail-item figcaption {
+  padding: 10px 0 0;
+}
+.work-detail-grid .work-detail-empty {
+  display: flex;
+}
+@media (max-width: 760px) {
+  .work-detail-grid {
+    columns: 1;
+  }
+}

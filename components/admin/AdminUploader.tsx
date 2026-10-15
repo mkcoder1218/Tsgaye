@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { AdminContentEditor } from "@/components/admin/AdminContentEditor";
+import { AdminImageLibrary } from "@/components/admin/AdminImageLibrary";
 
 const categories = [
   { label: "Hero Image", slug: "hero-image" },
@@ -228,7 +229,8 @@ export function AdminUploader() {
 
         <nav className="admin-section-nav" aria-label="Admin sections">
           <a href="#content-editor">Content</a>
-          <a href="#image-uploader">Images</a>
+          <a href="#image-uploader">Upload</a>
+          <a href="#image-library">Image library</a>
         </nav>
 
         <AdminContentEditor />
@@ -372,6 +374,8 @@ export function AdminUploader() {
             </button>
           </div>
         )}
+
+        <AdminImageLibrary refreshKey={completedCount} />
 
         <div className="admin-folder-guide">
           {categories.map((category, index) => (

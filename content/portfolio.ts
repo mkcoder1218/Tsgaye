@@ -45,19 +45,19 @@ export const portfolio = {
     },
     {
       "number": "02",
-      "title": "Marketing Design",
+      "title": "social media",
       "meta": "Campaigns · Promotions · Social",
       "visual": "campaign"
     },
     {
       "number": "03",
-      "title": "Print & Editorial",
-      "meta": "Posters · Layout · Promotional print",
+      "title": "poster",
+      "meta": "Posters · Layout · Promotional ",
       "visual": "editorial"
     },
     {
       "number": "04",
-      "title": "Digital & Motion",
+      "title": "logos",
       "meta": "Digital materials · Motion · 3D",
       "visual": "motion"
     }

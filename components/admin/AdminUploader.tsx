@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { AdminContentEditor } from "@/components/admin/AdminContentEditor";
 import { AdminImageLibrary } from "@/components/admin/AdminImageLibrary";
+import { AdminDocumentUploader } from "@/components/admin/AdminDocumentUploader";
 
 const categories = [
   { label: "Hero Image", slug: "hero-image" },
@@ -102,7 +103,7 @@ export function AdminUploader() {
   const [isDragging, setIsDragging] = useState(false);
   const [globalError, setGlobalError] = useState("");
   const [uploading, setUploading] = useState(false);
-  const [view, setView] = useState<"library" | "upload" | "content">("library");
+  const [view, setView] = useState<"library" | "upload" | "content" | "documents">("library");
 
   const completedCount = useMemo(
     () => items.filter((item) => item.status === "done").length,
@@ -213,6 +214,7 @@ export function AdminUploader() {
     { id: "library", label: "Media library", number: "01", description: "Browse & manage" },
     { id: "upload", label: "Upload artwork", number: "02", description: "Add new images" },
     { id: "content", label: "Content editor", number: "03", description: "Text & information" },
+    { id: "documents", label: "CV & résumé", number: "04", description: "Manage PDF downloads" },
   ] as const;
 
   return (
@@ -236,12 +238,13 @@ export function AdminUploader() {
         </aside>
         <section className="admin-panel">
           <div className="admin-heading">
-            <div><p className="admin-eyebrow">PORTFOLIO / ADMINISTRATION</p><h1>{view === "library" ? "Media library" : view === "upload" ? "Upload artwork" : "Content studio"}<span className="admin-heading-dot">.</span></h1>
-              <p className="admin-heading-description">{view === "library" ? "Your complete collection, beautifully organized and easy to manage." : view === "upload" ? "Give every piece a place in the portfolio." : "Shape the story behind the work."}</p></div>
+            <div><p className="admin-eyebrow">PORTFOLIO / ADMINISTRATION</p><h1>{view === "library" ? "Media library" : view === "upload" ? "Upload artwork" : view === "documents" ? "CV & résumé" : "Content studio"}<span className="admin-heading-dot">.</span></h1>
+              <p className="admin-heading-description">{view === "library" ? "Your complete collection, beautifully organized and easy to manage." : view === "upload" ? "Give every piece a place in the portfolio." : view === "documents" ? "Upload the PDF files visitors can download from your homepage." : "Shape the story behind the work."}</p></div>
             <button className="admin-top-action" type="button" onClick={() => setView(view === "upload" ? "library" : "upload")}>{view === "upload" ? "View library" : "+ Add images"} <span>↗</span></button>
           </div>
 
           <div hidden={view !== "content"}><AdminContentEditor /></div>
+          <div hidden={view !== "documents"}><AdminDocumentUploader /></div>
           <div hidden={view !== "upload"} className="admin-upload-view">
             <div className="admin-section-heading" id="image-uploader"><div><span>02 / UPLOAD</span><h2>Add to your collection</h2></div><p>Select multiple images, then assign their categories before publishing.</p></div>
         <div

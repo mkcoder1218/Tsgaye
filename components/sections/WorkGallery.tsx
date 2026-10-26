@@ -125,7 +125,7 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
             </button>
           ))}
         </div>
-        <span className="work-poster-hint">Select a poster to explore its collection ↗</span>
+        <span className="work-poster-hint">Click a poster here to see the works ↗</span>
       </div>
 
       {selectedProject && (

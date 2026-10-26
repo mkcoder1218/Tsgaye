@@ -3344,3 +3344,7 @@ body {
 .work-editorial .work-poster-5{left:65%;top:0;z-index:5;transform:rotate(2deg) scale(1)}
 @media(max-width:820px){.work-editorial .work-poster-5{left:64%;top:0}}
 @media(max-width:560px){.work-editorial .work-poster-5{left:59%;top:0}}
+
+.hero-editorial-download{display:flex;align-items:center;gap:12px;white-space:nowrap;padding:14px 15px;border:1px solid rgba(220,182,109,.5);color:#f5ecd9;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,border-color .2s,transform .2s}
+.hero-editorial-download:hover{background:rgba(220,182,109,.12);border-color:var(--accent);transform:translateY(-2px)}
+.hero-editorial-download span{font-size:16px;color:var(--accent)}

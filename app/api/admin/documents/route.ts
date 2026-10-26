@@ -43,9 +43,9 @@ export async function POST(request: Request) {
     return Response.json({ error: "Only PDF files are supported." }, { status: 400 });
   }
 
-  const maxBytes = 4 * 1024 * 1024;
+  const maxBytes = 50 * 1024 * 1024;
   if (file.size === 0 || file.size > maxBytes) {
-    return Response.json({ error: "PDF must be between 1 byte and 4 MB." }, { status: 400 });
+    return Response.json({ error: "PDF must be between 1 byte and 50 MB." }, { status: 400 });
   }
 
   const path = `public/${DOCUMENTS[kind]}`;

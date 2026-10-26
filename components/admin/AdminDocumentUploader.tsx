@@ -62,7 +62,7 @@ export function AdminDocumentUploader() {
             <p>{description}</p>
             <p><a href={path} target="_blank" rel="noreferrer">Current public file ↗</a></p>
             <label className="admin-content-field">
-              <span>Select PDF (max 4 MB)</span>
+              <span>Select PDF (max 50 MB)</span>
               <input
                 type="file"
                 accept="application/pdf,.pdf"

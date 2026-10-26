@@ -61,6 +61,12 @@ export async function Hero() {
             <a className="hero-editorial-work" href="#work">
               Explore selected work <span aria-hidden="true">↘</span>
             </a>
+            <a className="hero-editorial-download" href="/cv.pdf" download>
+              Download CV <span aria-hidden="true">↓</span>
+            </a>
+            <a className="hero-editorial-download" href="/resume.pdf" download>
+              Download Resume <span aria-hidden="true">↓</span>
+            </a>
             <a className="hero-editorial-contact" href={`mailto:${portfolio.email}`}>
               Have a project? <span>Let&apos;s talk ↗</span>
             </a>

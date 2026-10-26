@@ -120,7 +120,7 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
               </div>
               {index === projects.length - 1 && (
                 <span className="work-poster-callout" aria-hidden="true">
-                  Click here to see the works <span>↗</span>
+                  <span className="work-poster-callout-copy">Click here<br />to see the works</span><span className="work-poster-callout-arrow">↗</span>
                 </span>
               )}
               <span className="work-poster-label">

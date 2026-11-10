@@ -1,8 +1,9 @@
 import { CinematicText } from "@/components/motion/CinematicText";
-import { portfolio } from "@/content/portfolio";
+import { getLivePortfolio, getDocumentLinks } from "@/lib/livePortfolio";
 import { getLatestPortfolioImage } from "@/lib/imagekit";
 
 export async function Hero() {
+  const [portfolio, documentLinks] = await Promise.all([getLivePortfolio(), getDocumentLinks()]);
   const heroImage = await getLatestPortfolioImage("hero-image", {
     width: 1200,
     quality: 85,
@@ -61,10 +62,10 @@ export async function Hero() {
             <a className="hero-editorial-work" href="#work">
               Explore selected work <span aria-hidden="true">↘</span>
             </a>
-            <a className="hero-editorial-download" href="/cv.pdf" download>
+            <a className="hero-editorial-download" href={documentLinks.cv} target="_blank" rel="noopener noreferrer">
               Download CV <span aria-hidden="true">↓</span>
             </a>
-            <a className="hero-editorial-download" href="/resume.pdf" download>
+            <a className="hero-editorial-download" href={documentLinks.resume} target="_blank" rel="noopener noreferrer">
               Download Resume <span aria-hidden="true">↓</span>
             </a>
             <a className="hero-editorial-contact" href={`mailto:${portfolio.email}`}>

@@ -5,3 +5,6 @@ out
 .DS_Store
 !.env.example
 config.bat
+.env
+.env.*
+!.env.example

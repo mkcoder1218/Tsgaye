@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { portfolio } from "@/content/portfolio";
+import type { PortfolioContent } from "@/lib/livePortfolio";
 
 type WorkGalleryProps = {
-  projects: typeof portfolio.projects;
+  projects: PortfolioContent["projects"];
   galleries: string[][];
 };
 

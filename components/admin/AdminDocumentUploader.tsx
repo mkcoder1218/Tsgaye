@@ -1,83 +1,86 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { DocumentLinks } from "@/lib/livePortfolio";
 
-type DocumentKind = "cv" | "resume";
-type UploadResult = { ok?: boolean; error?: string; fileName?: string; commitUrl?: string | null };
+type DocumentKind = keyof DocumentLinks;
+type Message = { type: "success" | "error"; text: string };
+const cards: Array<{ kind: DocumentKind; title: string; description: string }> = [
+  { kind: "cv", title: "Curriculum Vitae", description: "Paste the public download link for the Download CV button." },
+  { kind: "resume", title: "Résumé", description: "Paste the public download link for the Download Resume button." },
+];
 
 export function AdminDocumentUploader() {
-  const [files, setFiles] = useState<Record<DocumentKind, File | null>>({ cv: null, resume: null });
-  const [uploading, setUploading] = useState<DocumentKind | null>(null);
-  const [messages, setMessages] = useState<Partial<Record<DocumentKind, { type: "success" | "error"; text: string }>>>({});
+  const [links, setLinks] = useState<DocumentLinks>({ cv: "", resume: "" });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState<DocumentKind | null>(null);
+  const [messages, setMessages] = useState<Partial<Record<DocumentKind, Message>>>({});
 
-  const upload = async (kind: DocumentKind) => {
-    const file = files[kind];
-    if (!file) {
-      setMessages((current) => ({ ...current, [kind]: { type: "error", text: "Choose a PDF file first." } }));
-      return;
-    }
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/admin/documents", { cache: "no-store", signal: controller.signal })
+      .then(async (response) => {
+        const data = await response.json() as DocumentLinks & { error?: string };
+        if (!response.ok) throw new Error(data.error || "Unable to load download links.");
+        setLinks({ cv: data.cv || "", resume: data.resume || "" });
+      })
+      .catch((error: unknown) => {
+        if (controller.signal.aborted) return;
+        const text = error instanceof Error ? error.message : "Unable to load download links.";
+        setMessages({ cv: { type: "error", text }, resume: { type: "error", text } });
+      })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, []);
 
-    setUploading(kind);
+  const save = async (kind: DocumentKind) => {
+    setSaving(kind);
     setMessages((current) => ({ ...current, [kind]: undefined }));
     try {
-      const body = new FormData();
-      body.append("kind", kind);
-      body.append("file", file);
-      const response = await fetch("/api/admin/documents", { method: "POST", body });
-      const result = (await response.json()) as UploadResult;
-      if (!response.ok) throw new Error(result.error || "Upload failed.");
+      const url = new URL(links[kind].trim());
+      if (!["https:", "http:"].includes(url.protocol)) throw new Error("Use an HTTPS or HTTP URL.");
+      const response = await fetch("/api/admin/documents", {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kind, url: url.toString() }),
+      });
+      const result = await response.json() as { error?: string; links?: DocumentLinks };
+      if (!response.ok) throw new Error(result.error || "Could not save the link.");
+      if (result.links) setLinks(result.links);
       setMessages((current) => ({
-        ...current,
-        [kind]: {
-          type: "success",
-          text: `${result.fileName} saved to GitHub. Vercel will publish it after the deployment completes.`,
-        },
+        ...current, [kind]: { type: "success", text: "Saved. Refresh the public page to use the new link." },
       }));
-      setFiles((current) => ({ ...current, [kind]: null }));
     } catch (error) {
       setMessages((current) => ({
-        ...current,
-        [kind]: { type: "error", text: error instanceof Error ? error.message : "Upload failed." },
+        ...current, [kind]: { type: "error", text: error instanceof Error ? error.message : "Save failed." },
       }));
-    } finally {
-      setUploading(null);
-    }
+    } finally { setSaving(null); }
   };
-
-  const cards: Array<{ kind: DocumentKind; title: string; description: string; path: string }> = [
-    { kind: "cv", title: "Curriculum Vitae", description: "Upload the PDF linked to the Download CV button on the homepage.", path: "/cv.pdf" },
-    { kind: "resume", title: "Résumé", description: "Upload the PDF linked to the Download Resume button on the homepage.", path: "/resume.pdf" },
-  ];
 
   return (
     <section className="admin-content-editor" id="document-uploader">
       <div className="admin-section-heading">
         <div><span>04 / DOCUMENTS</span><h2>CV & résumé downloads</h2></div>
-        <p>Manage the PDF files visitors can download from your hero section.</p>
+        <p>Manage the external download links used by your hero buttons.</p>
       </div>
       <div className="admin-content-grid">
-        {cards.map(({ kind, title, description, path }) => (
+        {cards.map(({ kind, title, description }) => (
           <section className="admin-content-card" key={kind}>
-            <header><h3>{title}</h3><span>PDF</span></header>
+            <header><h3>{title}</h3><span>LINK</span></header>
             <p>{description}</p>
-            <p><a href={path} target="_blank" rel="noreferrer">Current public file ↗</a></p>
             <label className="admin-content-field">
-              <span>Select PDF (max 4 MB)</span>
-              <input
-                type="file"
-                accept="application/pdf,.pdf"
+              <span>Public download URL</span>
+              <input type="url" placeholder="https://example.com/document.pdf"
+                value={links[kind]} disabled={loading || saving !== null}
                 onChange={(event) => {
-                  const file = event.target.files?.[0] ?? null;
-                  setFiles((current) => ({ ...current, [kind]: file }));
+                  setLinks((current) => ({ ...current, [kind]: event.target.value }));
                   setMessages((current) => ({ ...current, [kind]: undefined }));
-                }}
-              />
+                }} />
             </label>
-            {files[kind] && <p>{files[kind]?.name} · {((files[kind]?.size ?? 0) / 1024 / 1024).toFixed(2)} MB</p>}
+            {links[kind] && <p><a href={links[kind]} target="_blank" rel="noopener noreferrer">Open current link ↗</a></p>}
             {messages[kind] && <p className={`admin-content-message is-${messages[kind]?.type}`} role="status">{messages[kind]?.text}</p>}
             <div className="admin-content-actions">
-              <button type="button" disabled={uploading !== null} onClick={() => void upload(kind)}>
-                {uploading === kind ? "Uploading…" : `Upload ${kind === "cv" ? "CV" : "résumé"} PDF`}
+              <button type="button" disabled={loading || saving !== null} onClick={() => void save(kind)}>
+                {saving === kind ? "Saving…" : `Save ${kind === "cv" ? "CV" : "résumé"} link`}
               </button>
             </div>
           </section>

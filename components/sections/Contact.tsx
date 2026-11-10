@@ -1,6 +1,7 @@
-import { portfolio } from "@/content/portfolio";
+import { getLivePortfolio } from "@/lib/livePortfolio";
 
-export function Contact() {
+export async function Contact() {
+  const portfolio = await getLivePortfolio();
   return (
     <section className="section contact-section shell" id="contact">
       <div className="js-reveal">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { portfolio as initialPortfolio } from "@/content/portfolio";
 
 type PortfolioContent = {
@@ -32,8 +32,26 @@ function cloneInitial(): PortfolioContent {
 export function AdminContentEditor() {
   const [content, setContent] = useState<PortfolioContent>(cloneInitial);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/admin/content", { cache: "no-store", signal: controller.signal })
+      .then(async (response) => {
+        const data = await response.json() as PortfolioContent & { error?: string };
+        if (!response.ok) throw new Error(data.error || "Unable to load current content.");
+        setContent(data);
+      })
+      .catch((error: unknown) => {
+        if (controller.signal.aborted) return;
+        setMessageType("error");
+        setMessage(error instanceof Error ? error.message : "Unable to load current content.");
+      })
+      .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    return () => controller.abort();
+  }, []);
 
   const setField = <K extends keyof PortfolioContent>(
     key: K,
@@ -82,6 +100,7 @@ export function AdminContentEditor() {
   };
 
   const save = async () => {
+    if (loading) return;
     setSaving(true);
     setMessage("");
     setMessageType("");
@@ -101,7 +120,7 @@ export function AdminContentEditor() {
 
       setMessageType("success");
       setMessage(
-        "Content saved to the repository. The live site will update after the next deployment finishes.",
+        "Content saved. Refresh the public site to see your changes.",
       );
     } catch (error) {
       setMessageType("error");
@@ -180,9 +199,9 @@ export function AdminContentEditor() {
         {message && <p className={`admin-content-message is-${messageType}`}>{message}</p>}
 
         <div className="admin-content-actions">
-          <p>Saving updates the repository content file. Your deployment platform can then publish the change.</p>
-          <button type="button" disabled={saving} onClick={save}>
-            {saving ? "Saving…" : "Save content"}
+          <p>Changes appear on the public site on the next page load.</p>
+          <button type="button" disabled={saving || loading} onClick={save}>
+            {loading ? "Loading…" : saving ? "Saving…" : "Save content"}
           </button>
         </div>
       </div>

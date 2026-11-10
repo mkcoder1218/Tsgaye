@@ -1,7 +1,8 @@
 import { AdminBrandTrigger } from "@/components/admin/AdminBrandTrigger";
-import { portfolio } from "@/content/portfolio";
+import { getLivePortfolio } from "@/lib/livePortfolio";
 
-export function Header() {
+export async function Header() {
+  const portfolio = await getLivePortfolio();
   return (
     <header className="site-header">
       <nav className="shell navigation" aria-label="Primary navigation">

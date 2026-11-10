@@ -1,7 +1,8 @@
 import { getLatestPortfolioImage } from "@/lib/imagekit";
-import { portfolio } from "@/content/portfolio";
+import { getLivePortfolio } from "@/lib/livePortfolio";
 
 export async function About() {
+  const portfolio = await getLivePortfolio();
   const aboutImage = await getLatestPortfolioImage("about-me", {
     width: 1200,
     quality: 82,

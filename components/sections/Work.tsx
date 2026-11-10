@@ -1,4 +1,4 @@
-import { portfolio } from "@/content/portfolio";
+import { getLivePortfolio } from "@/lib/livePortfolio";
 import { getPortfolioImages } from "@/lib/imagekit";
 import { WorkGallery } from "@/components/sections/WorkGallery";
 
@@ -11,6 +11,7 @@ const categories = [
 ] as const;
 
 export async function Work() {
+  const portfolio = await getLivePortfolio();
   const galleries = await Promise.all(
     categories.map((category) => getPortfolioImages(category, { width: 1300, quality: 82 })),
   );

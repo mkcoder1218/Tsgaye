@@ -1,6 +1,7 @@
-import { portfolio } from "@/content/portfolio";
+import { getLivePortfolio } from "@/lib/livePortfolio";
 
-export function Footer() {
+export async function Footer() {
+  const portfolio = await getLivePortfolio();
   return (
     <footer className="site-footer">
       <div className="shell footer-inner">

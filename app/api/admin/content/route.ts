@@ -1,5 +1,6 @@
 import { Buffer } from "node:buffer";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
+import { getLivePortfolio } from "@/lib/livePortfolio";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -81,7 +82,12 @@ function isPortfolioContent(value: unknown): value is PortfolioContent {
 }
 
 function serializePortfolio(content: PortfolioContent) {
-  return `export const portfolio = ${JSON.stringify(content, null, 2)} as const;\n`;
+  return JSON.stringify(content, null, 2) + "\n";
+}
+
+export async function GET() {
+  if (!(await isAdminAuthenticated())) return Response.json({ error: "Unauthorized." }, { status: 401 });
+  return Response.json(await getLivePortfolio(), { headers: { "Cache-Control": "no-store" } });
 }
 
 export async function PUT(request: Request) {
@@ -120,7 +126,7 @@ export async function PUT(request: Request) {
     "Content-Type": "application/json",
   };
 
-  const path = "content/portfolio.ts";
+  const path = "content/portfolio.json";
   const encodedPath = path.split("/").map(encodeURIComponent).join("/");
   const fileUrl =
     `https://api.github.com/repos/${repository}/contents/${encodedPath}?ref=${encodeURIComponent(branch)}`;

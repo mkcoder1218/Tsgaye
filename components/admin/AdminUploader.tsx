@@ -214,7 +214,7 @@ export function AdminUploader() {
     { id: "library", label: "Media library", number: "01", description: "Browse & manage" },
     { id: "upload", label: "Upload artwork", number: "02", description: "Add new images" },
     { id: "content", label: "Content editor", number: "03", description: "Text & information" },
-    { id: "documents", label: "CV & résumé", number: "04", description: "Manage PDF downloads" },
+    { id: "documents", label: "CV & résumé", number: "04", description: "Manage download links" },
   ] as const;
 
   return (
@@ -239,7 +239,7 @@ export function AdminUploader() {
         <section className="admin-panel">
           <div className="admin-heading">
             <div><p className="admin-eyebrow">PORTFOLIO / ADMINISTRATION</p><h1>{view === "library" ? "Media library" : view === "upload" ? "Upload artwork" : view === "documents" ? "CV & résumé" : "Content studio"}<span className="admin-heading-dot">.</span></h1>
-              <p className="admin-heading-description">{view === "library" ? "Your complete collection, beautifully organized and easy to manage." : view === "upload" ? "Give every piece a place in the portfolio." : view === "documents" ? "Upload the PDF files visitors can download from your homepage." : "Shape the story behind the work."}</p></div>
+              <p className="admin-heading-description">{view === "library" ? "Your complete collection, beautifully organized and easy to manage." : view === "upload" ? "Give every piece a place in the portfolio." : view === "documents" ? "Configure the CV and résumé download links on your homepage." : "Shape the story behind the work."}</p></div>
             <button className="admin-top-action" type="button" onClick={() => setView(view === "upload" ? "library" : "upload")}>{view === "upload" ? "View library" : "+ Add images"} <span>↗</span></button>
           </div>
 

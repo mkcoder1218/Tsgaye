@@ -9,6 +9,10 @@ export async function Hero() {
     quality: 85,
   });
 
+  const nameParts = portfolio.name.trim().split(/\s+/);
+  const firstName = nameParts.shift() || portfolio.name;
+  const lastName = nameParts.join(" ");
+
   return (
     <section className="hero hero-editorial shell" id="top">
       <div className="hero-editorial-stage">
@@ -21,14 +25,14 @@ export async function Hero() {
         <div className="hero-editorial-glow" aria-hidden="true" />
 
         <div className="hero-editorial-type">
-          <p className="hero-editorial-overline js-hero-item">Graphic designer <span>&amp;</span> creative engineer</p>
-          <h1 className="hero-title hero-editorial-title" aria-label="Tsegaye Teshome">
+          <p className="hero-editorial-overline js-hero-item">{portfolio.role}</p>
+          <h1 className="hero-title hero-editorial-title" aria-label={portfolio.name}>
             <CinematicText className="hero-title-line hero-editorial-first" delay={120}>
-              Tsegaye
+              {firstName}
             </CinematicText>
-            <CinematicText className="hero-title-line hero-editorial-last" delay={260}>
-              Teshome
-            </CinematicText>
+            {lastName && <CinematicText className="hero-title-line hero-editorial-last" delay={260}>
+              {lastName}
+            </CinematicText>}
           </h1>
         </div>
 

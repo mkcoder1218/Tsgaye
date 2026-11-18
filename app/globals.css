@@ -2946,9 +2946,6 @@ body {
   from{translate:0 0}
   to{translate:0 calc(-50% - clamp(8px,1.1vw,16px) / 2)}
 }
-.expertise-mosaic-viewport:hover .expertise-mosaic-track{
-  animation-play-state:paused;
-}
 @media(prefers-reduced-motion:reduce){
   .expertise-mosaic-track{animation:none}
 }

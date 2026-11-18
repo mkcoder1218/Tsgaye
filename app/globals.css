@@ -3370,3 +3370,44 @@ body {
 .hero-editorial-download{display:flex;align-items:center;gap:12px;white-space:nowrap;padding:14px 15px;border:1px solid rgba(220,182,109,.5);color:#f5ecd9;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,border-color .2s,transform .2s}
 .hero-editorial-download:hover{background:rgba(220,182,109,.12);border-color:var(--accent);transform:translateY(-2px)}
 .hero-editorial-download span{font-size:16px;color:var(--accent)}
+
+/* Selected work: a single centered cue points toward the interactive fan. */
+.work-editorial .work-gallery-direction {
+  position: absolute;
+  z-index: 8;
+  left: 46%;
+  top: 51%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transform: translate(-50%, -50%);
+  color: #f1d293;
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+  text-shadow: 0 3px 18px #080604;
+  pointer-events: none;
+}
+.work-gallery-direction-arrow {
+  display: block;
+  font-size: clamp(36px, 4vw, 60px);
+  line-height: 1;
+  animation: work-gallery-direction-point 1.9s ease-in-out infinite;
+}
+@keyframes work-gallery-direction-point {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(7px, -7px); }
+}
+@media (max-width: 820px) {
+  .work-editorial .work-gallery-direction { left: 47%; top: 48%; gap: 8px; font-size: 10px; }
+  .work-gallery-direction-arrow { font-size: 36px; }
+}
+@media (max-width: 560px) {
+  .work-editorial .work-gallery-direction { left: 50%; top: 34%; gap: 10px; white-space: nowrap; }
+  .work-gallery-direction-arrow { transform: rotate(45deg); animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-gallery-direction-arrow { animation: none; }
+}

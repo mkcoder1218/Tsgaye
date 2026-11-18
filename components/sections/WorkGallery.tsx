@@ -118,11 +118,6 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
                   </div>
                 )}
               </div>
-              {index === projects.length - 1 && (
-                <span className="work-poster-callout" aria-hidden="true">
-                  <span className="work-poster-callout-copy">Click here<br />to see the works</span><span className="work-poster-callout-arrow">↗</span>
-                </span>
-              )}
               <span className="work-poster-label">
                 <span><small>{project.number} / Collection</small><strong>{project.title}</strong></span>
                 <span aria-hidden="true">↗</span>
@@ -130,7 +125,7 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
             </button>
           ))}
         </div>
-        <span className="work-poster-hint">Click a poster here to see the works ↗</span>
+        <div className="work-gallery-direction" aria-hidden="true">\n          <span>Click a card to<br />see the works</span>\n          <span className="work-gallery-direction-arrow">↗</span>\n        </div>
       </div>
 
       {selectedProject && (

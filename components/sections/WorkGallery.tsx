@@ -16,6 +16,31 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLButtonElement | null>(null);
 
+  const readUrlSelection = () => {
+    const work = new URL(window.location.href).searchParams.get("work");
+    if (!work || !/^[1-9]\d*$/.test(work)) return null;
+    const index = Number(work) - 1;
+    return Number.isSafeInteger(index) && index < projects.length ? index : null;
+  };
+
+  const setWorkUrl = (index: number | null, mode: "pushState" | "replaceState") => {
+    const url = new URL(window.location.href);
+    if (index === null) url.searchParams.delete("work");
+    else url.searchParams.set("work", String(index + 1));
+    window.history[mode](
+      index === null ? null : { ...window.history.state, workGallery: true },
+      "",
+      url.toString(),
+    );
+  };
+
+  useEffect(() => {
+    const syncUrl = () => setSelected(readUrlSelection());
+    syncUrl();
+    window.addEventListener("popstate", syncUrl);
+    return () => window.removeEventListener("popstate", syncUrl);
+  }, [projects.length]);
+
   useEffect(() => {
     if (selected === null) return;
     const panel = panelRef.current;
@@ -41,7 +66,7 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopImmediatePropagation();
-        setSelected(null);
+        close();
       }
     };
     window.addEventListener("keydown", onKey, true);
@@ -55,13 +80,23 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
 
   const open = (index: number, element: HTMLButtonElement) => {
     openerRef.current = element;
+    setWorkUrl(index, "pushState");
     setSelected(index);
   };
 
   const close = () => {
+    const finish = () => {
+      if (window.history.state?.workGallery) {
+        window.history.back();
+      } else {
+        setWorkUrl(null, "replaceState");
+        setSelected(null);
+      }
+    };
+
     if (!panelRef.current ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setSelected(null);
+      finish();
       return;
     }
     gsap.to(".work-detail-sheet", {
@@ -69,7 +104,7 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
       autoAlpha: 0,
       duration: 0.38,
       ease: "power3.in",
-      onComplete: () => setSelected(null),
+      onComplete: finish,
     });
   };
 

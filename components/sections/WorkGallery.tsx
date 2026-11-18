@@ -125,7 +125,18 @@ export function WorkGallery({ projects, galleries }: WorkGalleryProps) {
             </button>
           ))}
         </div>
-        <div className="work-gallery-direction" aria-hidden="true">\n          <span>Click a card to<br />see the works</span>\n          <span className="work-gallery-direction-arrow">↗</span>\n        </div>
+        {projects.length > 0 && (
+          <button
+            className="work-gallery-direction"
+            type="button"
+            aria-label="Explore the first work collection"
+            aria-haspopup="dialog"
+            onClick={(event) => open(0, event.currentTarget)}
+          >
+            <span>Click to see the works</span>
+            <span className="work-gallery-direction-arrow" aria-hidden="true">↗</span>
+          </button>
+        )}
       </div>
 
       {selectedProject && (
